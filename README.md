@@ -7,27 +7,32 @@ Here you can find LUA scripts and Arduino code which enables you to configure th
 
 Prior to installing the scripts and buildung the Arduino adapter you can play around with the scripts for different FrSky TX series in the OpenTX Companion.
 
-Yust copy the content of the SDCard path of this repository into the appropriate SDCARD path of your OpenTX Companion installation (see: 'Settings' 'SD Structure Path').
+Just copy the content of the SDCard path of this repository into the appropriate SDCARD path of your OpenTX Companion installation (see: 'Settings' 'SD Structure Path').
 
 Start the OpenTX Companion TX simulator for the TX of your choice.
 
 Navigate to the 'SD CARD' menu of the simulated TX.
+
 Choose the folder [3Digi].
+
 Execute the script 3Digi_de.lua (there will be a 3Digi_en.lua for the english language later).
 
 Start the 'Telemetry Simulator' and check the check box 'Simulator'.
+
 Set the RSSI value to a value above 30 dB.
 
 
 ## How to install the scripts on your TX
 
-Yust copy the whole content of the SDCard path of this repository into the appropriate SDCARD path of your TX.
+Just copy the whole content of the SDCard path of this repository into the appropriate SDCARD path of your TX.
 
 
 ## How to start the scripts on your TX
 
 Navigate to the 'SD CARD' menu of the TX.
+
 Choose the folder [3Digi].
+
 Execute the script 3Digi_de.lua (there will be a 3Digi_en.lua for the english language later).
 
 
@@ -58,49 +63,48 @@ For now, the recommendation is for users wanting to update OpenTX from 2.2.0 to 
 
 It's easy! You need the following parts (except for the last part the parts are available e.g. at ebay):
 
-An Arduino Pro Mini 5V: https://store.arduino.cc/arduino-pro-mini
-A cable to connect with your 3Digi
-A cable to connect with your FrSky RX
-A 6 pin header
-A servo connector
-Some heatshrink
-Some fun
+1. An Arduino Pro Mini 5V: https://store.arduino.cc/arduino-pro-mini
+2. A cable to connect with your 3Digi
+3. A cable to connect with your FrSky RX
+4. A 6 pin header
+5. A servo connector
+6. Some heatshrink
+7. Some fun
 
 
 There are many ways how to build the adapter, I did it this way:
 
-1.
-Solder the 6 pin header directly to the Arduino:
+1. Solder the 6 pin header directly to the Arduino:
 
 TODO jpg
 
-2.
-Solder the SmartPort cable for connecting with your FrSky RX directly to the Arduino:
+2. Solder the SmartPort cable for connecting with your FrSky RX directly to the Arduino:
+
 GND <-> GND
+
 5V <-> RAW
+
 SmartPort <-> 3
 
 TODO jpg
 
-3.
-Solder the adapter cable for later connecting the Arduino with your FrSky RX:
+3. Solder the adapter cable for later connecting the Arduino with your FrSky RX:
+
 TX <-> RX
+
 RX <-> TX
 
 TODO jpg
 
-4.
-Heatshrink the adapter:
+4. Heatshrink the adapter:
 
 TODO jpg
 
-5.
-Slit the heatshrink for better installation of the programmer or adapter cable:
+5. Slit the heatshrink for better installation of the programmer or adapter cable:
 
 TODO jpg
 
-6.
-Celebrate your success with your loved one (optional).
+6. Celebrate your success with your loved one (optional).
 
 No picture available ;-)
 
