@@ -96,7 +96,14 @@ GND <-> GND
 
 SmartPort <-> 3
 
-TODO jpg
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_2a.jpg">
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_2b.jpg">
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_2c.jpg">
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_2d.jpg">
+
 
 3. Solder the adapter cable for later connecting the Arduino with your FrSky RX:
 
@@ -104,15 +111,20 @@ TX <-> RX
 
 RX <-> TX
 
-TODO jpg
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_3a.jpg">
+
 
 4. Heatshrink the adapter:
 
-TODO jpg
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_4a.jpg">
+
 
 5. Slit the heatshrink for better installation of the programmer or adapter cable:
 
-TODO jpg
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_5a.jpg">
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_5b.jpg">
+
 
 6. Celebrate your success with your loved one (optional).
 
@@ -127,11 +139,13 @@ Use the code in the folder 3D-FrSky
 
 I use this programming 'equipment':
 
-TODO jpg
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_pa.jpg">
 
 
 ## How to connect the 3Digi-SmartPort adapter
 
-TODO jpg
+Well, when this little thing fits in my SAB Goblin Mini Comet it will also fit in most other helicopter:
 
-TODO jpg
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_ca.jpg">
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_cb.jpg">
