@@ -3,6 +3,11 @@
 Here you can find LUA scripts and Arduino code which enables you to configure the 3Digi FBL directly from your FrSky transmitter using SmartPort telemetry.
 
 
+## Please consider donating
+
+[![paypal](https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AX5JSCHVTWXW8)
+
+
 ## How to play around with the scripts in the OpenTX Companion
 
 Prior to installing the scripts and buildung the Arduino adapter you can play around with the scripts for different FrSky TX series in the OpenTX Companion.
