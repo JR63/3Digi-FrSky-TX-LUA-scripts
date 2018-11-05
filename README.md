@@ -22,7 +22,7 @@ Choose the folder [3Digi].
 
 Execute the script 3Digi_de.lua (there will be a 3Digi_en.lua for the english language later).
 
-Start the 'Telemetry Simulator' and check the check box 'Simulator'.
+Start the 'Telemetry Simulator' and check the check box 'Simulate'.
 
 Set the RSSI value to a value above 30 dB.
 
