@@ -88,6 +88,8 @@ There are many ways how to build the adapter, I did it this way:
 <img align="left" style="width:50%;height:50%;margin:20px 30px" src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_1c.jpg">
 
 
+
+
 2. Solder the SmartPort cable for connecting with your FrSky RX directly to the Arduino:
 
 GND <-> GND
