@@ -5,7 +5,7 @@ Here you can find LUA scripts and Arduino code which enables you to configure th
 
 ## Please consider donating
 
-[![paypal](https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AX5JSCHVTWXW8)
+[![paypal](https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3FXULQ9U8QRJL)
 
 
 ## How to play around with the scripts in the OpenTX Companion
