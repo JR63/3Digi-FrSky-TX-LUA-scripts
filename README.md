@@ -27,6 +27,11 @@ Start the 'Telemetry Simulator' and check the check box 'Simulator'.
 Set the RSSI value to a value above 30 dB.
 
 
+Here is a screenshot of OpenTX Companion simulating the Horus X10 with the scripts:
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot001.jpg">
+
+
 ## How to install the scripts on your TX
 
 Just copy the whole content of the SDCard path of this repository into the appropriate SDCARD path of your TX.
@@ -119,7 +124,7 @@ RX <-> TX
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_4a.jpg">
 
 
-5. Slit the heatshrink for better installation of the programmer or adapter cable:
+5. Slit the heatshrink for better installation of the programmer cable or adapter cable:
 
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_5a.jpg">
 
@@ -135,7 +140,7 @@ No picture available ;-)
 
 There are a bazillion of descriptions how to program an arduino on the web.
 
-Use the code in the folder 3D-FrSky
+Use the code in the folder 3D-FrSky of this repository.
 
 I use this programming 'equipment':
 
