@@ -105,7 +105,7 @@ SmartPort <-> 3
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_2d.jpg">
 
 
-3. Solder the adapter cable for later connecting the Arduino with your FrSky RX:
+3. Solder the adapter cable for later connecting the Arduino with your 3Digi:
 
 TX <-> RX
 
