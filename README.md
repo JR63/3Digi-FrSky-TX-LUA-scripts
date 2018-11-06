@@ -10,7 +10,7 @@ Here you can find LUA scripts and Arduino code which enables you to configure th
 
 ## How to play around with the scripts in the OpenTX Companion
 
-Prior to installing the scripts and buildung the Arduino adapter you can play around with the scripts for different FrSky TX series in the OpenTX Companion.
+Prior to installing the scripts on a real transmitter and building the Arduino adapter you can play around with the scripts for different FrSky TX series in the OpenTX Companion.
 
 Just copy the content of the SDCard path of this repository into the appropriate SDCARD path of your OpenTX Companion installation (see: 'Settings' 'SD Structure Path').
 
