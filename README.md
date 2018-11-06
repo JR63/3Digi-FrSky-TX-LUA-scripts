@@ -26,10 +26,22 @@ Start the 'Telemetry Simulator' and check the check box 'Simulate'.
 
 Set the RSSI value to a value above 30 dB.
 
+If you created a new model it is necessary to 'Discover new sensors' in the models 'Telemetry' menu of the simulated TX.
+
 
 Here is a screenshot of OpenTX Companion simulating the Horus X10 with the scripts:
 
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot001.jpg">
+
+
+Here is a screenshot of OpenTX Companion simulating the Taranis X9D with the scripts:
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot002.jpg">
+
+
+Here is a screenshot of OpenTX Companion simulating the Taranis Q X7 with the scripts:
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot003.jpg">
 
 
 ## How to install the scripts on your TX
@@ -44,6 +56,11 @@ Navigate to the 'SD CARD' menu of the TX.
 Choose the folder [3Digi].
 
 Execute the script 3Digi_de.lua (there will be a 3Digi_en.lua for the english language later).
+
+
+And here you can see the real thing:
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_001.jpg">
 
 
 ## Adding the main script as a telemetry page
@@ -149,7 +166,7 @@ I use this programming 'equipment':
 
 ## How to connect the 3Digi-SmartPort adapter
 
-Well, when this little thing fits in my SAB Goblin Mini Comet it will also fit in most other helicopter:
+Well, when this little thing fits in my small and slim SAB Goblin Mini Comet it will also fit in most other helicopter:
 
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_ca.jpg">
 
