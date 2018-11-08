@@ -11,8 +11,6 @@
 --
 -- TODOs
 --
---	evtl. Seiten mit Graphen nur einblenden, wenn nötig
---
 --	evtl. key events optimieren
 --
 
@@ -87,6 +85,19 @@ local function handleSpecial(appId, value)
     if appId == SPECIAL_SAVE_RESPONSE then
         if value == 1 then
 	    saveRetries = 100
+	end
+    end
+end
+
+
+local function handlePageSkip(param, value)
+    for i=1,#(PageSkip) do
+        if PageSkip[i].param == param then
+	    if bit32.band(value, PageSkip[i].bitmask) > 0 then
+	        PageSkip[i].skip = 0
+	    else
+	        PageSkip[i].skip = 1
+	    end
 	end
     end
 end
@@ -169,6 +180,7 @@ local function pollValues()
 			    paramCheck = paramCheck + (32-i) * bit32.band(appId,0x00FF)
 			end
 		    end
+		    handlePageSkip(f.param, value)
 		    local calculated = value
 		    calculated = handleSigned(f, calculated)
 		    calculated = handleBitmask(f, calculated, 0)
@@ -257,6 +269,15 @@ end
 
 local function incPage(inc)
    currentPage = incMax(currentPage, inc, #(PageFiles))
+   
+   for i=1,#(PageSkip) do
+      if PageSkip[i].page == PageFiles[currentPage] then
+	 if PageSkip[i].skip == 1 then
+            incPage(inc)
+	 end
+      end
+   end
+   
    currentLine = 1
    clearPageData()
    collectgarbage()

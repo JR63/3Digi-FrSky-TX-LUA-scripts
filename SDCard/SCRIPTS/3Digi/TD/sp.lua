@@ -61,11 +61,11 @@ TDInitSimValues = function()
 	
         sim_paramset_1[137] =  80
         sim_paramset_1[134] = 128
-        sim_paramset_1[135] =   0
+        sim_paramset_1[135] =   1
         sim_paramset_1[138] =  10
         sim_paramset_1[149] =  80
         sim_paramset_1[146] = 128
-        sim_paramset_1[147] =   0
+        sim_paramset_1[147] =   1
         sim_paramset_1[150] =  40
         sim_paramset_1[151] =  20
         sim_paramset_1[185] =   0
@@ -109,7 +109,7 @@ TDInitSimValues = function()
 	
         sim_paramset_1[248] =   0
 	
-        sim_paramset_1[219] =   0
+        sim_paramset_1[219] =   3
         sim_paramset_1[221] =1500
         sim_paramset_1[222] =  50
         sim_paramset_1[223] =  50
@@ -177,11 +177,11 @@ TDInitSimValues = function()
 	
         sim_paramset_2[137] =  80
         sim_paramset_2[134] = 128
-        sim_paramset_2[135] =   0
+        sim_paramset_2[135] =   1
         sim_paramset_2[138] =  10
         sim_paramset_2[149] =  80
         sim_paramset_2[146] = 128
-        sim_paramset_2[147] =   0
+        sim_paramset_2[147] =   1
         sim_paramset_2[150] =  40
         sim_paramset_2[151] =  20
         sim_paramset_2[185] =   0
@@ -225,7 +225,7 @@ TDInitSimValues = function()
 	
         sim_paramset_2[248] =   0
 	
-        sim_paramset_2[219] =   0
+        sim_paramset_2[219] =   3
         sim_paramset_2[221] =1500
         sim_paramset_2[222] =  50
         sim_paramset_2[223] =  50
@@ -293,11 +293,11 @@ TDInitSimValues = function()
 	
         sim_paramset_3[137] =  80
         sim_paramset_3[134] = 128
-        sim_paramset_3[135] =   0
+        sim_paramset_3[135] =   1
         sim_paramset_3[138] =  10
         sim_paramset_3[149] =  80
         sim_paramset_3[146] = 128
-        sim_paramset_3[147] =   0
+        sim_paramset_3[147] =   1
         sim_paramset_3[150] =  40
         sim_paramset_3[151] =  20
         sim_paramset_3[185] =   0
@@ -341,7 +341,7 @@ TDInitSimValues = function()
 	
         sim_paramset_3[248] =   0
 	
-        sim_paramset_3[219] =   0
+        sim_paramset_3[219] =   3
         sim_paramset_3[221] =1500
         sim_paramset_3[222] =  50
         sim_paramset_3[223] =  50
