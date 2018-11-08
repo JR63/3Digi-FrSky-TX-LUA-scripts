@@ -11,9 +11,6 @@
 --
 -- TODOs
 --
---	Allgemein 1:	Qualitaet
---	Allgemein 2:	Qualitaet
---
 --	evtl. Seiten mit Graphen nur einblenden, wenn nötig
 --
 --	evtl. key events optimieren
