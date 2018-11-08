@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/07
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -13,6 +13,7 @@
 
 return {
    title = "IVerlauf Roll",
+   title_en = "IDecay aileron",
    topic = {
    },
    text = {

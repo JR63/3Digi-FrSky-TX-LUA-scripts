@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/07
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -13,8 +13,12 @@
 
 return {
    title = "IVerlauf Nick",
+   title_en = "IDecay elevator",
    topic = {
-      { t = "IVerlauf Nick Kurve",			x =  10, y =  45 },
+      { t = "IDecay Nick Kurve",			x =  10, y =  45 },
+   },
+   topic_en = {
+      { t = "IDecay elevator curve",			x =  10, y =  45 },
    },
    text = {
       { t = "-100",					x =  20, y = 215 },

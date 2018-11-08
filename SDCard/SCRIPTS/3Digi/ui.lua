@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/08
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -269,6 +269,9 @@ end
 local function incLine(inc)
    if Page ~= nil then
       currentLine = incMax(currentLine, inc, #(Page.fields))
+      if Page.fields[currentLine].type == "bar" then
+          currentLine = incMax(currentLine, inc, #(Page.fields))
+      end
    end
 end
 
@@ -276,14 +279,14 @@ end
 local function incMenu(inc)
    menuActive = incMax(menuActive, inc, #(menuList))
    if MenuText[menuList[menuActive].i+1] == "" then
-      menuActive = menuActive + inc
+      menuActive = incMax(menuActive, inc, #(menuList))
    end
 end
 
 
 local function drawScreenTitle(screen_title)
     if radio.resolution == lcdResolution.low or radio.resolution == lcdResolution.medium then
-        lcd.drawFilledRectangle(0, 0, LCD_W,  8)
+        lcd.drawFilledRectangle(0, 0, LCD_W,  7)
         lcd.drawText(1, 0, screen_title, SMLSIZE+INVERS)
     else
         lcd.drawFilledRectangle(0, 0, LCD_W, 30, TITLE_BGCOLOR)
@@ -300,6 +303,14 @@ local function drawTopic(y, topic)
         lcd.drawFilledRectangle(10, y, LCD_W - 20, 20, TITLE_BGCOLOR)
         lcd.drawText(15, y,  topic, MENU_TITLE_COLOR)
     end
+end
+
+
+local function drawBar(x, y, w, h, v)
+    -- 20000 -> 100%
+    local v = v / 200
+    lcd.drawRectangle(x, y, w,  h)
+    lcd.drawFilledRectangle(x+2, y+2, (w-4)*v/100, h-4)
 end
 
 
@@ -385,7 +396,11 @@ local function drawScreen()
 	        end
             end
         end
-        lcd.drawText(f.x, f.y, val, value_options)
+	if f.type == "bar" and val ~= "---" then
+	    drawBar(f.x, f.y, Page.bar.rect_w, Page.bar.rect_h, val)
+	else
+            lcd.drawText(f.x, f.y, val, value_options)
+	end
     end
     if Page.graph ~= nil then
         drawGraph()
@@ -538,7 +553,7 @@ function run_ui(event)
         elseif event == userEvent.release.enter then
             if comState == comStates.versionOk and Page ~= nil then
 	        local f = Page.fields[currentLine]
-                if paramCheck == Page.param_check and f.value ~= nil and f.type ~= "readonly" then
+                if paramCheck == Page.param_check and f.value ~= nil and f.type ~= "bar" then
                     pageState = pageStates.editing
                 end
             end

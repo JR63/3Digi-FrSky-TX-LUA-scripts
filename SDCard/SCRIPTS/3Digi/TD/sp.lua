@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/08
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -134,13 +134,13 @@ TDInitSimValues = function()
         sim_paramset_1[121 + 0x0100] =   3
         sim_paramset_1[121 + 0x0200] =   3
         sim_paramset_1[196] =   0
-        --sim_paramset_1[???] =   0
+        sim_paramset_1[197] = 20000
         sim_paramset_1[198] =   0
         sim_paramset_1[199] =   0
         sim_paramset_1[200] =   0
 	
         sim_paramset_1[ 43] =   0
-        --sim_paramset_1[???] =   0
+        sim_paramset_1[ 46] = 5000
         sim_paramset_1[ 44] =   0
         sim_paramset_1[ 45] =   0
         sim_paramset_1[ 47] =   0
@@ -250,13 +250,13 @@ TDInitSimValues = function()
         sim_paramset_2[121 + 0x0100] =   3
         sim_paramset_2[121 + 0x0200] =   3
         sim_paramset_2[196] =   0
-        --sim_paramset_2[???] =   0
+        sim_paramset_2[197] = 15000
         sim_paramset_2[198] =   0
         sim_paramset_2[199] =   0
         sim_paramset_2[200] =   0
 	
         sim_paramset_2[ 43] =   0
-        --sim_paramset_2[???] =   0
+        sim_paramset_2[ 46] = 2500
         sim_paramset_2[ 44] =   0
         sim_paramset_2[ 45] =   0
         sim_paramset_2[ 47] =   0
@@ -366,13 +366,13 @@ TDInitSimValues = function()
         sim_paramset_3[121 + 0x0100] =   3
         sim_paramset_3[121 + 0x0200] =   3
         sim_paramset_3[196] =   0
-        --sim_paramset_3[???] =   0
+        sim_paramset_3[197] = 10000
         sim_paramset_3[198] =   0
         sim_paramset_3[199] =   0
         sim_paramset_3[200] =   0
 	
         sim_paramset_3[ 43] =   0
-        --sim_paramset_3[???] =   0
+        sim_paramset_3[ 46] = 1250
         sim_paramset_3[ 44] =   0
         sim_paramset_3[ 45] =   0
         sim_paramset_3[ 47] =   0
@@ -495,18 +495,18 @@ TDQueue = function()
 	    sendQueue[ 2] = 121 + 0x0100
 	    sendQueue[ 3] = 121 + 0x0200
 	    sendQueue[ 4] = 196
-	    -- ???
-	    sendQueue[ 5] = 198
-	    sendQueue[ 6] = 199
-	    sendQueue[ 7] = 200
-	    sendQueue[ 8] =  -1
+	    sendQueue[ 5] = 197
+	    sendQueue[ 6] = 198
+	    sendQueue[ 7] = 199
+	    sendQueue[ 8] = 200
+	    sendQueue[ 9] =  -1
         elseif bit32.band(setValueSet,0x00FF) == 11 then
 	    sendQueue[ 1] =  43
-	    -- ???
-	    sendQueue[ 2] =  44
-	    sendQueue[ 3] =  45
-	    sendQueue[ 4] =  47
-	    sendQueue[ 5] =  -1
+	    sendQueue[ 2] =  46
+	    sendQueue[ 3] =  44
+	    sendQueue[ 4] =  45
+	    sendQueue[ 5] =  47
+	    sendQueue[ 6] =  -1
         elseif bit32.band(setValueSet,0x00FF) == 12 then
 	    sendQueue[ 1] = 125 + 0x0000
 	    sendQueue[ 2] = 125 + 0x0100

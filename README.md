@@ -20,7 +20,7 @@ Navigate to the 'SD CARD' menu of the simulated TX.
 
 Choose the folder [3Digi].
 
-Execute the script 3Digi_de.lua (there will be a 3Digi_en.lua for the english language later).
+Execute the script 3Digi_de.lua for the german version or execute the script 3Digi_en.lua for the english version.
 
 Start the 'Telemetry Simulator' and check the check box 'Simulate'.
 
@@ -55,7 +55,7 @@ Navigate to the 'SD CARD' menu of the TX.
 
 Choose the folder [3Digi].
 
-Execute the script 3Digi_de.lua (there will be a 3Digi_en.lua for the english language later).
+Execute the script 3Digi_de.lua for the german version or execute the script 3Digi_en.lua for the english version.
 
 
 And here you can see the real thing:
@@ -73,7 +73,7 @@ For now, this only applies to the Taranis X9 and Q7 series, not for the Horus se
 3. Use the [-] button to move the cursor down to [Screen 1] and hit [ENT].
 4. Use the [+] or [-] buttons to select the [Script] option and press [ENT].
 5. Press [-] to move the cursor to the script selection field and hit [ENT].
-6. Select TDde and hit [ENT]. (There will be a TDen for the english language later).
+6. Select TDde for the german version or TDen for the english version and hit [ENT].
 7. Long-press [EXIT] to return to your model screen.
 
 To invoke the script, simply long-press the [PAGE] button from the model screen.

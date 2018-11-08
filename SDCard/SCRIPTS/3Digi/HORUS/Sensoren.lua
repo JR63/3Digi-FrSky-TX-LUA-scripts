@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/07
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -13,9 +13,14 @@
 
 return {
    title = "Sensoren",
+   title_en = "Sensors",
    topic = {
       { t = "Sensoren",					x =  10, y =  65 },
       { t = "RC Eingang",				x =  10, y = 160 },
+   },
+   topic_en = {
+      { t = "Sensors",					x =  10, y =  65 },
+      { t = "RC input",					x =  10, y = 160 },
    },
    text = {
       { t = "Roll",					x = 180, y =  35, to = MIDSIZE },
@@ -25,6 +30,15 @@ return {
       { t = "Totband",					x =  20, y =  90 },
       { t = "Filter",					x =  20, y = 115 },
       { t = "Totband",					x =  20, y = 185 },
+   },
+   text_en = {
+      { t = "Aile.",					x = 180, y =  35, to = MIDSIZE },
+      { t = "Elev.",					x = 280, y =  35, to = MIDSIZE },
+      { t = "Tail",					x = 380, y =  35, to = MIDSIZE },
+      
+      { t = "Deadband",					x =  20, y =  90 },
+      { t = "Filter",					x =  20, y = 115 },
+      { t = "Deadband",					x =  20, y = 185 },
    },
    value_set = 12,
    param_check = 31284,

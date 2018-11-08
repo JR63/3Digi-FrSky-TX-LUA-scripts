@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/07
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -13,10 +13,16 @@
 
 return {
    title = "Drehzahlregelung",
+   title_en = "Governor",
    topic = {
       { t = "Aktivierung",				x =  10, y =  45 },
       { t = "Regelung",					x =  10, y =  95 },
       { t = "Kompensation",				x =  10, y = 170 },
+   },
+   topic_en = {
+      { t = "Activation",				x =  10, y =  45 },
+      { t = "Governor control",					x =  10, y =  95 },
+      { t = "Compensation",				x =  10, y = 170 },
    },
    text = {
       { t = "Drehzahlregelung aktivieren",		x =  20, y =  68 },
@@ -31,11 +37,24 @@ return {
       { t = "Von Nick",					x = 320, y = 218 },
       { t = "Beschleunigung",				x =  20, y = 243 },
    },
+   text_en = {
+      { t = "Activate governor",			x =  20, y =  68 },
+      { t = "RPM",					x = 320, y =  68 },
+      { t = "Overall gain",				x =  20, y = 118 },
+      { t = "P",					x =  20, y = 143 },
+      { t = "I",					x = 170, y = 143 },
+      { t = "IRange",					x = 320, y = 143 },
+      { t = "Use coll. pitch curve",			x =  20, y = 193 },
+      { t = "F. coll. pit.",				x =  20, y = 218 },
+      { t = "F. aileron",				x = 170, y = 218 },
+      { t = "F. elevator",				x = 320, y = 218 },
+      { t = "Acceleration",				x =  20, y = 243 },
+   },
    value_set = 8,
    param_check = 64552,
    fields = {
       -- Drehzahlregelung aktivieren
-      { x = 260, y =  68, min =   0, max =   1, param = 219, type = "uint8_t", to = MIDSIZE, valuetext = { [0] = "Aus", "An" }, bitmask = 0x01 },
+      { x = 260, y =  68, min =   0, max =   1, param = 219, type = "uint8_t", to = MIDSIZE, valuetext = { [0] = "Aus", "An" }, valuetext_en = { [0] = "Off", "On" }, bitmask = 0x01 },
       -- Drehzahl
       { x = 405, y =  68, min = 500, max =5000, param = 221, type = "uint16_t",to = MIDSIZE },
       -- Empfindlichkeit
@@ -47,7 +66,7 @@ return {
       -- IBereich
       { x = 410, y = 143, min =   0, max = 128, param = 226, type = "uint8_t", to = MIDSIZE },
       -- Pitch-Kurve verwenden
-      { x = 260, y = 193, min =   0, max =   1, param = 219, type = "uint8_t", to = MIDSIZE, valuetext = { [0] = "Aus", "An" }, bitmask = 0x02 },
+      { x = 260, y = 193, min =   0, max =   1, param = 219, type = "uint8_t", to = MIDSIZE, valuetext = { [0] = "Aus", "An" }, valuetext_en = { [0] = "Off", "On" }, bitmask = 0x02 },
       -- Von Pitch
       { x = 110, y = 218, min =   0, max = 128, param = 228, type = "uint8_t", to = MIDSIZE },
       -- Von Roll

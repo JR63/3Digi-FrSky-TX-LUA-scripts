@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/05
+-- @see        Version V1.00 - 2018/11/07
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -13,6 +13,7 @@
 
 return {
    title = "Normal",
+   title_en = "Normal",
    topic = {
    },
    text = {
@@ -26,6 +27,18 @@ return {
       { t = "PFaktor",					x =   3, y =  40, to = SMLSIZE },
       { t = "IFaktor",					x =   3, y =  48, to = SMLSIZE },
       { t = "DFaktor",					x =   3, y =  56, to = SMLSIZE },
+   },
+   text_en = {
+      { t = "Aile.",					x =  95, y =   8, to = SMLSIZE },
+      { t = "Elev.",					x = 140, y =   8, to = SMLSIZE },
+      { t = "Tail",					x = 185, y =   8, to = SMLSIZE },
+      
+      { t = "Agility",					x =   3, y =  16, to = SMLSIZE },
+      { t = "Overall gain",				x =   3, y =  24, to = SMLSIZE },
+      { t = "Initial response",				x =   3, y =  32, to = SMLSIZE },
+      { t = "P",					x =   3, y =  40, to = SMLSIZE },
+      { t = "I",					x =   3, y =  48, to = SMLSIZE },
+      { t = "D",					x =   3, y =  56, to = SMLSIZE },
    },
    value_set = 1,
    param_check = 56886,
