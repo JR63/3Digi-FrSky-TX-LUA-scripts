@@ -3,7 +3,7 @@
  * @author     Joerg-D. Rothfuchs
  * @brief      Implements 3Digi to FrSky SmartPort converter.
  * @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
- * @see        Version v1.00 - 2018/11/05
+ * @see        Version v1.00 - 2018/11/08
  *
  *             Usage at your own risk! No warranty for anything!
  *
@@ -621,14 +621,14 @@ void receivedGetValueSet(void)
 			queueTDCommand(TD_COMMAND_GET, 121 + paramset + 0x0100, 0);
 			queueTDCommand(TD_COMMAND_GET, 121 + paramset + 0x0200, 0);
 			queueTDCommand(TD_COMMAND_GET, 196 + paramset, 0);
-			//queueTDCommand(TD_COMMAND_GET, ??? + paramset, 0);
+			queueTDCommand(TD_COMMAND_GET, 197 + paramset, 0);
 			queueTDCommand(TD_COMMAND_GET, 198 + paramset, 0);
 			queueTDCommand(TD_COMMAND_GET, 199 + paramset, 0);
 			queueTDCommand(TD_COMMAND_GET, 200 + paramset, 0);
 		break;
 		case 11:	// prepare for getting ValueSet 11
 			queueTDCommand(TD_COMMAND_GET,  43 + paramset, 0);
-			//queueTDCommand(TD_COMMAND_GET, ??? + paramset, 0);
+			queueTDCommand(TD_COMMAND_GET,  46 + paramset, 0);
 			queueTDCommand(TD_COMMAND_GET,  44 + paramset, 0);
 			queueTDCommand(TD_COMMAND_GET,  45 + paramset, 0);
 			queueTDCommand(TD_COMMAND_GET,  47 + paramset, 0);
