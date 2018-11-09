@@ -133,6 +133,82 @@ static uint8_t crc_table[256] =
 #endif // CRC_USE_TABLE
 
 
+static uint16_t value_set_01[] = {
+    128, 129, 130, 131, 132, 133, 140, 141, 142, 143, 144, 145, 152, 153, 154, 155, 156, 157, 0
+};
+
+
+static uint16_t value_set_02[] = {
+    134, 135, 137, 138, 146, 147, 149, 150, 151, 162, 163, 164, 185, 0
+};
+
+
+static uint16_t value_set_03[] = {
+    136 | 0x0000, 136 | 0x0100, 136 | 0x0200, 136 | 0x0300, 136 | 0x0400, 136 | 0x0500, 136 | 0x0600, 136 | 0x0700, 136 | 0x0800, 0
+};
+
+
+static uint16_t value_set_04[] = {
+    148 | 0x0000, 148 | 0x0100, 148 | 0x0200, 148 | 0x0300, 148 | 0x0400, 148 | 0x0500, 148 | 0x0600, 148 | 0x0700, 148 | 0x0800, 0
+};
+
+
+static uint16_t value_set_05[] = {
+    126, 127, 168, 169, 170, 0
+};
+
+
+static uint16_t value_set_06[] = {
+    158, 159, 160, 161, 165, 166, 167, 0
+};
+
+
+static uint16_t value_set_07[] = {
+    248, 0
+};
+
+
+static uint16_t value_set_08[] = {
+    219, 221, 222, 223, 224, 226, 228, 229, 230, 232, 0
+};
+
+
+static uint16_t value_set_09[] = {
+    227 | 0x0000, 227 | 0x0100, 227 | 0x0200, 227 | 0x0300, 227 | 0x0400, 227 | 0x0500, 227 | 0x0600, 227 | 0x0700, 227 | 0x0800, 0
+};
+
+
+static uint16_t value_set_10[] = {
+    121 | 0x0000, 121 | 0x0100, 121 | 0x0200, 196, 197, 198, 199, 200, 0
+};
+
+
+static uint16_t value_set_11[] = {
+     43,  44,  45,  46,  47, 0
+};
+
+
+static uint16_t value_set_12[] = {
+    122 | 0x0000, 122 | 0x0100, 122 | 0x0200, 123 | 0x0000, 123 | 0x0100, 123 | 0x0200, 125 | 0x0000, 125 | 0x0100, 125 | 0x0200, 0
+};
+
+
+static uint16_t* value_set_table[] = {
+    value_set_01,
+    value_set_02,
+    value_set_03,
+    value_set_04,
+    value_set_05,
+    value_set_06,
+    value_set_07,
+    value_set_08,
+    value_set_09,
+    value_set_10,
+    value_set_11,
+    value_set_12,
+};
+
+
 #define BUF_SIZE		50
 uint8_t buf[BUF_SIZE];
 uint8_t* bufptr = buf;
@@ -209,10 +285,7 @@ bool checkCRC(uint8_t* bptr, uint8_t len)
  */
 void serialEscape(uint8_t b)
 {
-	if (b == SERIAL_END_OF_FRAME) {
-		Serial.write(SERIAL_ESCAPE);
-		Serial.write(b ^ SERIAL_XOR);
-	} else if (b == SERIAL_ESCAPE) {
+	if (b == SERIAL_END_OF_FRAME || b == SERIAL_ESCAPE) {
 		Serial.write(SERIAL_ESCAPE);
 		Serial.write(b ^ SERIAL_XOR);
 	} else {
@@ -406,11 +479,12 @@ void handleTDFrameType_AA(uint8_t* bptr)
 
 
 /**
- * @brief  Handle 3Digi frame type 0x00
+ * @brief  Handle 3Digi frame type 0x00 and 0x01
  */
-void handleTDFrameType_00(uint8_t* bptr)
+void handleTDFrameType_00_01(uint8_t* bptr)
 {
-	// seems to be the response to the get command frame for negative 7 bit values
+	// 0x00 seems to be the response to the get command frame for negative 7 bit values
+	// 0x01 seems to be the response to the get command frame for positive 8 bit values
 	if (TDSendQueueLastCommand == TD_COMMAND_GET) {
 		digiTx.queueData(TDSendQueueLastParameter, bptr[1]);
 	}
@@ -419,39 +493,14 @@ void handleTDFrameType_00(uint8_t* bptr)
 
 
 /**
- * @brief  Handle 3Digi frame type 0x01
+ * @brief  Handle 3Digi frame type 0x02 and 0x03
  */
-void handleTDFrameType_01(uint8_t* bptr)
+void handleTDFrameType_02_03(uint8_t* bptr)
 {
-	// seems to be the response to the get command frame for positive 8 bit values
+	// 0x02 seems to be the response to the get command frame for negative 15 bit values
+	// 0x03 seems to be the response to the get command frame for positive 16 bit values
 	if (TDSendQueueLastCommand == TD_COMMAND_GET) {
-		digiTx.queueData(TDSendQueueLastParameter, bptr[1]);
-	}
-	TDQueueState = READY_FOR_SEND;
-}
-
-
-/**
- * @brief  Handle 3Digi frame type 0x02
- */
-void handleTDFrameType_02(uint8_t* bptr)
-{
-	// seems to be the response to the get command frame for negative 15 bit values
-	if (TDSendQueueLastCommand == TD_COMMAND_GET) {
-		digiTx.queueData(TDSendQueueLastParameter, bptr[1] + (bptr[2] << 8));
-	}
-	TDQueueState = READY_FOR_SEND;
-}
-
-
-/**
- * @brief  Handle 3Digi frame type 0x03
- */
-void handleTDFrameType_03(uint8_t* bptr)
-{
-	// seems to be the response to the get command frame for positive 16 bit values
-	if (TDSendQueueLastCommand == TD_COMMAND_GET) {
-		digiTx.queueData(TDSendQueueLastParameter, bptr[1] + (bptr[2] << 8));
+		digiTx.queueData(TDSendQueueLastParameter, bptr[1] | (bptr[2] << 8));
 	}
 	TDQueueState = READY_FOR_SEND;
 }
@@ -462,7 +511,6 @@ void handleTDFrameType_03(uint8_t* bptr)
  */
 void handleTDFrameType_05(uint8_t* bptr)
 {
-	// ?
 /*
 13.149443249999999,Async Serial,' ' 	(0x20)		get
 13.149530000000000,Async Serial,'218' 	(0xDA)		218
@@ -470,13 +518,28 @@ void handleTDFrameType_05(uint8_t* bptr)
 13.149703750000000,Async Serial,+ 	(0x2B)		CRC
 13.149790500000000,Async Serial,z 	(0x7A)		frame end
 
-13.150277750000001,Async Serial,'5' 	(0x05)				Flug Info ?
-13.150364500000000,Async Serial,'0' 	(0x00)		0
-13.150451000000000,Async Serial,'0' 	(0x00)		0
-13.150537750000000,Async Serial,'8' 	(0x08)		8
-13.150624499999999,Async Serial,'0' 	(0x00)		0
+13.150277750000001,Async Serial,'5' 	(0x05)		?
+13.150364500000000,Async Serial,'0' 	(0x00)
+13.150451000000000,Async Serial,'0' 	(0x00)
+13.150537750000000,Async Serial,'8' 	(0x08)
+13.150624499999999,Async Serial,'0' 	(0x00)
 13.150711250000001,Async Serial,'164' 	(0xA4)		CRC
 13.150798000000000,Async Serial,z 	(0x7A)		frame end
+
+
+15.277426250000000,Async Serial,' ' 	(0x20)		get
+15.277513000000001,Async Serial,"" 	(0x22)		34
+15.277599750000000,Async Serial,'0' 	(0x00)		0
+15.277686500000000,Async Serial,'196' 	(0xC4)		CRC
+15.277773500000000,Async Serial,z 	(0x7A)		frame end
+
+15.277887750000000,Async Serial,'5' 	(0x05)		?
+15.277974499999999,Async Serial,'255' 	(0xFF)
+15.278061250000000,Async Serial,'127' 	(0x7F)
+15.278147750000000,Async Serial,'0' 	(0x00)
+15.278234500000000,Async Serial,'0' 	(0x00)
+15.278321249999999,Async Serial,'137' 	(0x89)		CRC
+15.278408000000001,Async Serial,z 	(0x7A)		frame end
 */
 }
 
@@ -488,10 +551,10 @@ void handleTDFrameType_31(uint8_t* bptr)
 {
 	// seems to be the response to the get version frame
 	if (TDSendQueueLastCommand == TD_COMMAND_GET_VERSION) {
-		digiTx.queueData(SPECIAL_VERSION,       bptr[ 1] + ((uint32_t)bptr[ 2] << 8) + ((uint32_t)bptr[ 3] << 16));
-		digiTx.queueData(SPECIAL_SERIAL_PART_1, bptr[ 5] + ((uint32_t)bptr[ 6] << 8) + ((uint32_t)bptr[ 7] << 16) + ((uint32_t)bptr[ 8] << 24));
-		digiTx.queueData(SPECIAL_SERIAL_PART_2, bptr[ 9] + ((uint32_t)bptr[10] << 8) + ((uint32_t)bptr[11] << 16) + ((uint32_t)bptr[12] << 24));
-		digiTx.queueData(SPECIAL_SERIAL_PART_3, bptr[13] + ((uint32_t)bptr[14] << 8) + ((uint32_t)bptr[15] << 16) + ((uint32_t)bptr[16] << 24));
+		digiTx.queueData(SPECIAL_VERSION,       (uint32_t)bptr[ 1] | ((uint32_t)bptr[ 2] << 8) | ((uint32_t)bptr[ 3] << 16));
+		digiTx.queueData(SPECIAL_SERIAL_PART_1, (uint32_t)bptr[ 5] | ((uint32_t)bptr[ 6] << 8) | ((uint32_t)bptr[ 7] << 16) | ((uint32_t)bptr[ 8] << 24));
+		digiTx.queueData(SPECIAL_SERIAL_PART_2, (uint32_t)bptr[ 9] | ((uint32_t)bptr[10] << 8) | ((uint32_t)bptr[11] << 16) | ((uint32_t)bptr[12] << 24));
+		digiTx.queueData(SPECIAL_SERIAL_PART_3, (uint32_t)bptr[13] | ((uint32_t)bptr[14] << 8) | ((uint32_t)bptr[15] << 16) | ((uint32_t)bptr[16] << 24));
 	}
 }
 
@@ -515,137 +578,11 @@ void receivedGetVersion(void)
 void receivedGetValueSet(void)
 {
 	uint16_t paramset = digiRx.getAppId() & 0xff00;
-	switch (digiRx.getAppId() & 0x00ff) {
-		case 1:		// prepare for getting ValueSet 1
-			queueTDCommand(TD_COMMAND_GET, 132 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 133 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 131 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 128 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 129 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 130 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 144 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 145 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 143 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 140 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 141 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 142 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 156 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 157 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 155 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 152 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 153 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 154 + paramset, 0);
-		break;
-		case 2:		// prepare for getting ValueSet 2
-			queueTDCommand(TD_COMMAND_GET, 137 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 134 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 135 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 138 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 149 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 146 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 147 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 150 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 151 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 185 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 163 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 162 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 164 + paramset, 0);
-		break;
-		case 3:		// prepare for getting ValueSet 3
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0200, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0300, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0400, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0500, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0600, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0700, 0);
-			queueTDCommand(TD_COMMAND_GET, 136 + paramset + 0x0800, 0);
-		break;
-		case 4:		// prepare for getting ValueSet 4
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0200, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0300, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0400, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0500, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0600, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0700, 0);
-			queueTDCommand(TD_COMMAND_GET, 148 + paramset + 0x0800, 0);
-		break;
-		case 5:		// prepare for getting ValueSet 5
-			queueTDCommand(TD_COMMAND_GET, 168 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 126 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 127 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 169 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 170 + paramset, 0);
-		break;
-		case 6:		// prepare for getting ValueSet 6
-			queueTDCommand(TD_COMMAND_GET, 158 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 159 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 160 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 161 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 167 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 165 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 166 + paramset, 0);
-		break;
-		case 7:		// prepare for getting ValueSet 7
-			queueTDCommand(TD_COMMAND_GET, 248 + paramset, 0);
-		break;
-		case 8:		// prepare for getting ValueSet 8
-			queueTDCommand(TD_COMMAND_GET, 219 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 221 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 222 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 223 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 224 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 226 + paramset, 0);
-			//queueTDCommand(TD_COMMAND_GET, 219 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 228 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 229 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 230 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 232 + paramset, 0);
-		break;
-		case 9:		// prepare for getting ValueSet 9
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0200, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0300, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0400, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0500, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0600, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0700, 0);
-			queueTDCommand(TD_COMMAND_GET, 227 + paramset + 0x0800, 0);
-		break;
-		case 10:	// prepare for getting ValueSet 10
-			queueTDCommand(TD_COMMAND_GET, 121 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 121 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 121 + paramset + 0x0200, 0);
-			queueTDCommand(TD_COMMAND_GET, 196 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 197 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 198 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 199 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET, 200 + paramset, 0);
-		break;
-		case 11:	// prepare for getting ValueSet 11
-			queueTDCommand(TD_COMMAND_GET,  43 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET,  46 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET,  44 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET,  45 + paramset, 0);
-			queueTDCommand(TD_COMMAND_GET,  47 + paramset, 0);
-		break;
-		case 12:	// prepare for getting ValueSet 12
-			queueTDCommand(TD_COMMAND_GET, 125 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 125 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 125 + paramset + 0x0200, 0);
-			queueTDCommand(TD_COMMAND_GET, 123 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 123 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 123 + paramset + 0x0200, 0);
-			queueTDCommand(TD_COMMAND_GET, 122 + paramset + 0x0000, 0);
-			queueTDCommand(TD_COMMAND_GET, 122 + paramset + 0x0100, 0);
-			queueTDCommand(TD_COMMAND_GET, 122 + paramset + 0x0200, 0);
-		break;
-		default:
-		break;
+	uint16_t *parameterPtr = value_set_table[(digiRx.getAppId() & 0x00ff) - 1];
+	uint16_t parameter = *parameterPtr++;
+	while (parameter != 0) {
+		queueTDCommand(TD_COMMAND_GET, parameter | paramset, 0);
+		parameter = *parameterPtr++;
 	}
 }
 
@@ -756,16 +693,12 @@ void readTDResponse(void)
 				if (buf[1] == SERIAL_END_OF_FRAME) handleTDFrameType_AA(buf);
 			break;
 			case 0x00:
-				if (checkCRC(buf,  2)) handleTDFrameType_00(buf);
-			break;
 			case 0x01:
-				if (checkCRC(buf,  2)) handleTDFrameType_01(buf);
+				if (checkCRC(buf,  2)) handleTDFrameType_00_01(buf);
 			break;
 			case 0x02:
-				if (checkCRC(buf,  3)) handleTDFrameType_02(buf);
-			break;
 			case 0x03:
-				if (checkCRC(buf,  3)) handleTDFrameType_03(buf);
+				if (checkCRC(buf,  3)) handleTDFrameType_02_03(buf);
 			break;
 			case 0x05:
 				if (checkCRC(buf,  5)) handleTDFrameType_05(buf);
