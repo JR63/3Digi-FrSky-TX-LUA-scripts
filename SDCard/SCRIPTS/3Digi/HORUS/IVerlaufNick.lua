@@ -15,7 +15,7 @@ return {
    title = "IVerlauf Nick",
    title_en = "IDecay elevator",
    topic = {
-      { t = "IDecay Nick Kurve",			x =  10, y =  45 },
+      { t = "IVerlauf Nick Kurve",			x =  10, y =  45 },
    },
    topic_en = {
       { t = "IDecay elevator curve",			x =  10, y =  45 },
