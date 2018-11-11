@@ -29,19 +29,19 @@ Set the RSSI value to a value above 30 dB.
 If you created a new model it is necessary to 'Discover new sensors' in the models 'Telemetry' menu of the simulated TX.
 
 
-Here is a screenshot of OpenTX Companion simulating the Horus X10 with the scripts:
+Here is a screenshot of OpenTX Companion simulating the scripts on the Horus X10:
 
-<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot001.jpg">
-
-
-Here is a screenshot of OpenTX Companion simulating the Taranis X9D with the scripts:
-
-<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot002.jpg">
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot001_en.jpg">
 
 
-Here is a screenshot of OpenTX Companion simulating the Taranis Q X7 with the scripts:
+Here is a screenshot of OpenTX Companion simulating the scripts on the Taranis X9D:
 
-<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot003.jpg">
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot002_en.jpg">
+
+
+Here is a screenshot of OpenTX Companion simulating the scripts on the Taranis Q X7:
+
+<img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/SrceenShot003_en.jpg">
 
 
 ## How to install the scripts on your TX
@@ -58,7 +58,7 @@ Choose the folder [3Digi].
 Execute the script 3Digi_de.lua for the german version or execute the script 3Digi_en.lua for the english version.
 
 
-And here you can see the real thing:
+And here you can see the real thing (german version):
 
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_001.jpg">
 
