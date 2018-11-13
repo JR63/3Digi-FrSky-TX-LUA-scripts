@@ -8,6 +8,11 @@ Here you can find LUA scripts and Arduino code which enables you to configure th
 [![paypal](https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3FXULQ9U8QRJL)
 
 
+## A short video
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=JW1EijqbsC4" target="_blank"><img src="http://img.youtube.com/vi/JW1EijqbsC4/0.jpg" alt="FrSky OpenTX integration for 3Digi" width="240" height="180" border="10" /></a>
+
+
 ## How to play around with the scripts in the OpenTX Companion
 
 Prior to installing the scripts on a real transmitter and building the Arduino adapter you can play around with the scripts for different FrSky TX series in the OpenTX Companion.
