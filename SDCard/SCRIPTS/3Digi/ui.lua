@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/08
+-- @see        Version V1.00 - 2018/11/13
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -35,6 +35,9 @@ local pageStates =
 local comState = comStates.init
 local comTS = 0
 local version = ""
+local serialPart1 = 0
+local serialPart2 = 0
+local serialPart3 = 0
 local Page = nil
 local pageState = pageStates.display
 local bitmasked = {}
@@ -60,10 +63,27 @@ local function clearPageData()
     paramCheck = 0
     pageState = pageStates.display
     saveTS = 0
-    Page = assert(loadScript(radio.templateHome .. PageFiles[currentPage]))()
+    Page = assert(loadScript(radio.templateHome..PageFiles[currentPage]))()
     Page.graph_values = {}
     if comState == comStates.versionOk then
         protocol.TDGetValueSet(Page.value_set + (paramset - 1) * 0x4000)
+    end
+end
+
+
+local function getMessageText(value)
+    local l
+    if language == "en" then
+        l = 1
+    else
+        l = 2
+    end
+    if value >= 2000 then
+        return ErrorText[value-2000][l]
+    elseif value >= 1000 then
+        return WarningText[value-1000][l]
+    else
+        return InfoText[value+1][l]
     end
 end
 
@@ -80,6 +100,18 @@ local function handleSpecial(appId, value)
 	    comState = comStates.versionOk
 	end
 	clearPageData()
+    end
+    -- serial part 1 response
+    if appId == SPECIAL_SERIAL_PART_1 then
+	serialPart1 = value
+    end
+    -- serial part 2 response
+    if appId == SPECIAL_SERIAL_PART_2 then
+	serialPart2 = value
+    end
+    -- serial part 3 response
+    if appId == SPECIAL_SERIAL_PART_3 then
+	serialPart3 = value
     end
     -- save response
     if appId == SPECIAL_SAVE_RESPONSE then
@@ -100,6 +132,22 @@ local function handlePageSkip(param, value)
 	    end
 	end
     end
+end
+
+
+local function handleInfo(f, value)
+    if f.type == "text" then
+        value = getMessageText(value)
+    elseif f.type == "nibble" then
+        value = string.format('%1X', bit32.rshift(value, 4)).."."..string.format('%1X', bit32.band(value,0x0f))
+    elseif f.param == 216 then
+        value = (value / 10).." s"
+    elseif f.param == -1 and f.type == "serial" then
+        value = string.format('%08X', serialPart1).."."..string.format('%08X', serialPart2).."."..string.format('%08X', serialPart3)
+    elseif f.param == -1 and f.type == "v_firm" then
+        value = version
+    end
+    return value
 end
 
 
@@ -182,12 +230,17 @@ local function pollValues()
 		    end
 		    handlePageSkip(f.param, value)
 		    local calculated = value
+		    calculated = handleInfo(f, calculated)
 		    calculated = handleSigned(f, calculated)
 		    calculated = handleBitmask(f, calculated, 0)
 		    if Page.graph ~= nil then
 		        Page.graph_values[f.index+1] = calculated
 		    end
 		    f.value = calculated
+	        else
+	            if f.param == -1 then
+	                f.value = handleInfo(f, value)
+                    end
 	        end
             end
         end
@@ -397,7 +450,7 @@ local function drawScreen()
         local f = Page.fields[i]
         local text_options = (f.to or 0) + globalTextOptions
         local value_options = text_options
-        if i == currentLine then
+        if i == currentLine and f.ro ~= 1 then
             value_options = text_options + INVERS
             if pageState == pageStates.editing then
                 value_options = value_options + BLINK
@@ -571,7 +624,7 @@ function run_ui(event)
         elseif event == userEvent.release.enter then
             if comState == comStates.versionOk and Page ~= nil then
 	        local f = Page.fields[currentLine]
-                if paramCheck == Page.param_check and f.value ~= nil and f.type ~= "bar" then
+                if paramCheck == Page.param_check and f.value ~= nil and f.ro ~= 1 then
                     pageState = pageStates.editing
                 end
             end

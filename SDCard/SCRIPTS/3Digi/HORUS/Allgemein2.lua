@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/08
+-- @see        Version V1.00 - 2018/11/13
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -47,7 +47,7 @@ return {
       -- Optimierer aktivieren
       { x = 240, y =  90, min =   0, max =   1, param =  43, type = "bool",    to = MIDSIZE, valuetext = { [0] = "Deaktiviert", "Aktiviert" }, valuetext_en = { [0] = "Deactivated", "Activated" } },
       -- Qualitaet
-      { x = 240, y = 120, min =   0, max = 20000, param =  46, type = "bar",   to = MIDSIZE },
+      { x = 240, y = 120, min =   0, max = 20000, param =  46, type = "bar",   to = MIDSIZE, ro = 1 },
       -- Wert
       { x = 290, y = 140, min = -30, max =  30, param =  44, type = "int32_t", to = MIDSIZE },
       { x = 350, y = 140, min = -30, max =  30, param =  45, type = "int32_t", to = MIDSIZE },

@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/08
+-- @see        Version V1.00 - 2018/11/13
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -29,7 +29,6 @@ SPECIAL_SAVE_RESPONSE			= 5
 
 --> simulator
 local simulator = -1
-local sim_initialized = 0
 local sim_paramset_1 = {}
 local sim_paramset_2 = {}
 local sim_paramset_3 = {}
@@ -39,7 +38,12 @@ local wait = 0
 local setValueSet = 0
 
 TDInitSimValues = function()
-    if sim_initialized == 0 then
+        sim_paramset_1[202] =  49
+        sim_paramset_1[214] =   0
+        sim_paramset_1[215] =  80
+        sim_paramset_1[216] =  95
+        sim_paramset_1[217] =  85
+    
         sim_paramset_1[132] = 100
         sim_paramset_1[133] =  60
         sim_paramset_1[131] =  85
@@ -154,7 +158,13 @@ TDInitSimValues = function()
         sim_paramset_1[122 + 0x0000] =  10
         sim_paramset_1[122 + 0x0100] =  10
         sim_paramset_1[122 + 0x0200] =  10
-	
+    
+    
+        sim_paramset_2[202] =  49
+        sim_paramset_2[214] =   0
+        sim_paramset_2[215] =  80
+        sim_paramset_2[216] =  95
+        sim_paramset_2[217] =  85
 	
         sim_paramset_2[132] = 100
         sim_paramset_2[133] =  45
@@ -270,7 +280,13 @@ TDInitSimValues = function()
         sim_paramset_2[122 + 0x0000] =  10
         sim_paramset_2[122 + 0x0100] =  10
         sim_paramset_2[122 + 0x0200] =  10
-	
+    
+    
+        sim_paramset_3[202] =  49
+        sim_paramset_3[214] =   0
+        sim_paramset_3[215] =  80
+        sim_paramset_3[216] =  95
+        sim_paramset_3[217] =  85
 	
         sim_paramset_3[132] = 100
         sim_paramset_3[133] =  45
@@ -386,12 +402,17 @@ TDInitSimValues = function()
         sim_paramset_3[122 + 0x0000] =  10
         sim_paramset_3[122 + 0x0100] =  10
         sim_paramset_3[122 + 0x0200] =  10
-    end
-    sim_initialized = 1
 end
 
 TDQueue = function()
-        if bit32.band(setValueSet,0x00FF) == 1 then
+        if bit32.band(setValueSet,0x00FF) == 0 then
+	    sendQueue[ 1] = 202
+	    sendQueue[ 2] = 214
+	    sendQueue[ 3] = 215
+	    sendQueue[ 4] = 216
+	    sendQueue[ 5] = 217
+	    sendQueue[ 6] =  -1
+        elseif bit32.band(setValueSet,0x00FF) == 1 then
 	    sendQueue[ 1] = 132
 	    sendQueue[ 2] = 133
 	    sendQueue[ 3] = 131
@@ -530,6 +551,7 @@ protocol.TDInit = function(ValueSet)
         local ver, radio, major, minor, rev = getVersion()
         if string.find(radio, "-simu") ~= nil then
             simulator = 1
+            TDInitSimValues()
         else
             simulator = 0
         end
@@ -541,7 +563,6 @@ end
 protocol.TDGetValueSet = function(ValueSet)
 --> simulator
     if simulator == 1 then
-        TDInitSimValues()
         wait = 10
 	setValueSet = ValueSet
         TDQueue()

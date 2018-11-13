@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/08
+-- @see        Version V1.00 - 2018/11/13
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -53,7 +53,7 @@ return {
       -- Trimm-Flug aktivieren
       { x =  59, y =  40, min =   0, max =   1, param = 196, type = "bool",    to = SMLSIZE, valuetext = { [0] = "Deaktiviert", "Aktiviert" }, valuetext_en = { [0] = "Deactivated", "Activated" } },
       -- Qualitaet
-      { x =  59, y =  48, min =   0, max = 20000, param = 197, type = "bar",   to = SMLSIZE },
+      { x =  59, y =  48, min =   0, max = 20000, param = 197, type = "bar",   to = SMLSIZE, ro = 1 },
       -- Trimmwert
       { x =  59, y =  56, min =-200, max = 200, param = 198, type = "int32_t", to = SMLSIZE },
       { x =  82, y =  56, min =-200, max = 200, param = 199, type = "int32_t", to = SMLSIZE },

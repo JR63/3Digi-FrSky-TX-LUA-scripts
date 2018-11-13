@@ -3,7 +3,7 @@
  * @author     Joerg-D. Rothfuchs
  * @brief      Implements 3Digi to FrSky SmartPort converter.
  * @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
- * @see        Version v1.00 - 2018/11/08
+ * @see        Version v1.00 - 2018/11/12
  *
  *             Usage at your own risk! No warranty for anything!
  *
@@ -133,6 +133,11 @@ static uint8_t crc_table[256] =
 #endif // CRC_USE_TABLE
 
 
+static uint16_t value_set_00[] = {
+    202, 214, 215, 216, 217, 0
+};
+
+
 static uint16_t value_set_01[] = {
     128, 129, 130, 131, 132, 133, 140, 141, 142, 143, 144, 145, 152, 153, 154, 155, 156, 157, 0
 };
@@ -194,6 +199,7 @@ static uint16_t value_set_12[] = {
 
 
 static uint16_t* value_set_table[] = {
+    value_set_00,
     value_set_01,
     value_set_02,
     value_set_03,
@@ -507,44 +513,6 @@ void handleTDFrameType_02_03(uint8_t* bptr)
 
 
 /**
- * @brief  Handle 3Digi frame type 0x05
- */
-void handleTDFrameType_05(uint8_t* bptr)
-{
-/*
-13.149443249999999,Async Serial,' ' 	(0x20)		get
-13.149530000000000,Async Serial,'218' 	(0xDA)		218
-13.149616750000000,Async Serial,'0' 	(0x00)		0
-13.149703750000000,Async Serial,+ 	(0x2B)		CRC
-13.149790500000000,Async Serial,z 	(0x7A)		frame end
-
-13.150277750000001,Async Serial,'5' 	(0x05)		?
-13.150364500000000,Async Serial,'0' 	(0x00)
-13.150451000000000,Async Serial,'0' 	(0x00)
-13.150537750000000,Async Serial,'8' 	(0x08)
-13.150624499999999,Async Serial,'0' 	(0x00)
-13.150711250000001,Async Serial,'164' 	(0xA4)		CRC
-13.150798000000000,Async Serial,z 	(0x7A)		frame end
-
-
-15.277426250000000,Async Serial,' ' 	(0x20)		get
-15.277513000000001,Async Serial,"" 	(0x22)		34
-15.277599750000000,Async Serial,'0' 	(0x00)		0
-15.277686500000000,Async Serial,'196' 	(0xC4)		CRC
-15.277773500000000,Async Serial,z 	(0x7A)		frame end
-
-15.277887750000000,Async Serial,'5' 	(0x05)		?
-15.277974499999999,Async Serial,'255' 	(0xFF)
-15.278061250000000,Async Serial,'127' 	(0x7F)
-15.278147750000000,Async Serial,'0' 	(0x00)
-15.278234500000000,Async Serial,'0' 	(0x00)
-15.278321249999999,Async Serial,'137' 	(0x89)		CRC
-15.278408000000001,Async Serial,z 	(0x7A)		frame end
-*/
-}
-
-
-/**
  * @brief  Handle 3Digi frame type 0x31
  */
 void handleTDFrameType_31(uint8_t* bptr)
@@ -578,7 +546,7 @@ void receivedGetVersion(void)
 void receivedGetValueSet(void)
 {
 	uint16_t paramset = digiRx.getAppId() & 0xff00;
-	uint16_t *parameterPtr = value_set_table[(digiRx.getAppId() & 0x00ff) - 1];
+	uint16_t *parameterPtr = value_set_table[(digiRx.getAppId() & 0x00ff)];
 	uint16_t parameter = *parameterPtr++;
 	while (parameter != 0) {
 		queueTDCommand(TD_COMMAND_GET, parameter | paramset, 0);
@@ -699,9 +667,6 @@ void readTDResponse(void)
 			case 0x02:
 			case 0x03:
 				if (checkCRC(buf,  3)) handleTDFrameType_02_03(buf);
-			break;
-			case 0x05:
-				if (checkCRC(buf,  5)) handleTDFrameType_05(buf);
 			break;
 			case 0x31:
 				if (checkCRC(buf, 17)) handleTDFrameType_31(buf);

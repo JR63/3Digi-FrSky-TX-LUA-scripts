@@ -2,14 +2,17 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/08
+-- @see        Version V1.00 - 2018/11/13
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
 -- @see
 
-PageFiles = 
-{
+TEXT_COLOR = 2
+SaveTextSize = DBLSIZE
+
+PageFiles = {
+    "Information.lua",
     "Normal.lua",
     "Experte.lua",
     "IVerlaufRoll.lua",
@@ -30,9 +33,6 @@ PageSkip = {
       { page = "IVerlaufNick.lua", param = 147, bitmask = 0x01 },
       { page = "PitchKurve.lua",   param = 219, bitmask = 0x02 },
 }
-
-TEXT_COLOR = 2
-SaveTextSize = DBLSIZE
 
 TitleText = {
     pre = "3Digi/PS",
@@ -82,6 +82,44 @@ TelemText = {
 
 TelemText_en = {
     Text = "No Telemetry",
+}
+
+InfoText = {
+    { "Everything Okay", "Alles OK" },
+    { "System start", "System Start" },
+    { "Sensor Okay", "Sensor OK" },
+    { "RC reception Okay", "RC Empfang OK" },
+    { "Autotrim start", "Autotrimm Start" },
+    { "Autotrim stop", "Autotrimm Stop" },
+    { "Autotrim saved", "Autotrim Speichern" },
+    { "Governor active", "Drehzahlregler aktiv" },
+    { "Governor deactivated", "Drehzahlregler deaktiviert" },
+    { "AutoLevel active", "AutoLevel aktiv" },
+    { "AutoLevel deactivated", "AutoLevel deaktiviert" },
+}
+
+WarningText = {
+    { "Voltage below 5.0V", "Spannung unter 5,0V" },
+    { "RC sat master failsafe", "RC Sat Master Failsafe" },
+    { "RC sat slave failsafe", "RC Sat Slave Failsafe" },
+    { "RC sat master Okay", "RC Sat Master OK" },
+    { "RC sat slave Okay", "RC Sat Slave OK" },
+    { "Voltage below 4.0V", "Spannung unter 4,0V" },
+    { "Aileron servo limit reached", "Roll Servo Limit erreicht" },
+    { "Elevator servo limit reached", "Nick Servo Limit erreicht" },
+    { "Tail servo limit reached", "Heck Servo Limit erreicht" },
+    { "Throttle channel limit reached", "Gas Kanal Limit erreicht" },
+}
+
+ErrorText = {
+    { "Error sensor", "Fehler Sensor" },
+    { "Voltage below 4.5V", "Spannung unter 4,5V" },
+    { "RC failsafe", "RC Failsafe" },
+    { "Voltage below 3.5V", "Spannung unter 3,5V" },
+    { "Error RPM sensor", "Fehler RPM Sensor" },
+    { "Error Governor Spoolup", "Fehler Drehzahlregler Spoolup" },
+    { "Sensor limit rotation", "Sensor Limit Drehrate" },
+    { "Sensor limit acceleration", "Sensor Limit Beschleunigung" },
 }
 
 MenuBox = { x=10, y=12, x_offset=44, y_offset=3, w=194, h_line=8 }
