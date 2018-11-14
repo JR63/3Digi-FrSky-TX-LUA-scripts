@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/13
+-- @see        Version V1.00 - 2018/11/14
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -92,11 +92,11 @@ local function handleSpecial(appId, value)
     -- TODO appId = bit32.band(appId,0x00FF)
     -- version response
     if appId == SPECIAL_VERSION then
-	version = "V"
+	version = ""
 	version = version..bit32.rshift(bit32.band(value,0x000000FF),  0).."."
 	version = version..bit32.rshift(bit32.band(value,0x0000FF00),  8).."."
 	version = version..bit32.rshift(bit32.band(value,0x00FF0000), 16)
-	if version == "V2.0.0" then
+	if version == "2.0.0" then
 	    comState = comStates.versionOk
 	end
 	clearPageData()
@@ -545,7 +545,7 @@ function run_ui(event)
         protocol.TDInit()
         comState = comStates.versionCheck
         comTS = getTime()
-	version = "V-.-.-"
+	version = "-.-.-"
     end
     
     if (comState == comStates.versionCheck) then
@@ -575,7 +575,7 @@ function run_ui(event)
                 if comState ~= comStates.versionCheck then
                     comState = comStates.versionCheck
                     comTS = getTime()
-	            version = "V-.-.-"
+	            version = "-.-.-"
                 end
             end
         end
@@ -654,7 +654,7 @@ function run_ui(event)
     end
     
     if protocol.rssi() > 30 then
-        lcd.drawText(InfoBox.x, InfoBox.y, version, InfoBox.to)
+        lcd.drawText(InfoBox.x, InfoBox.y, "V"..version, InfoBox.to)
 	local offset
 	if currentPage < 10 then
 	    offset = InfoBox.offset1
@@ -673,7 +673,7 @@ function run_ui(event)
         if comState ~= comStates.versionCheck then
             comState = comStates.versionCheck
             comTS = getTime()
-	    version = "V-.-.-"
+	    version = "-.-.-"
         end
     end
     
