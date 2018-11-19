@@ -613,7 +613,7 @@ function run_ui(event)
         end
     -- normal page viewing
     elseif pageState <= pageStates.display then
-        if event == userEvent.press.pageUp then
+        if event == userEvent.press.pageUp or event == userEvent.press.pageUpX10 then
             incPage(-1)
         elseif event == userEvent.release.menu or event == userEvent.press.pageDown then
             incPage(1)
