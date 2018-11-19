@@ -14,7 +14,8 @@ return
         minus = EVT_MINUS_FIRST,
         plus = EVT_PLUS_FIRST,
         pageDown = EVT_PAGEDN_FIRST,
-        pageUp = EVT_PAGEUP_FIRST or EVT_LEFT_BREAK
+        pageUp = EVT_PAGEUP_FIRST or EVT_LEFT_BREAK,
+        pageUpX10 = EVT_SYS_FIRST
     },
     longPress = {
         enter = EVT_ENTER_LONG,
