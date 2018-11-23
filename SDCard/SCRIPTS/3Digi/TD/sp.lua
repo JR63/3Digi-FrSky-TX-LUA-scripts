@@ -406,12 +406,15 @@ end
 
 TDQueue = function()
         if bit32.band(setValueSet,0x00FF) == 0 then
-	    sendQueue[ 1] = 202
-	    sendQueue[ 2] = 214
-	    sendQueue[ 3] = 215
-	    sendQueue[ 4] = 216
-	    sendQueue[ 5] = 217
-	    sendQueue[ 6] =  -1
+	    sendQueue[ 1] = 135
+	    sendQueue[ 2] = 147
+	    sendQueue[ 3] = 202
+	    sendQueue[ 4] = 214
+	    sendQueue[ 5] = 215
+	    sendQueue[ 6] = 216
+	    sendQueue[ 7] = 217
+	    sendQueue[ 8] = 219
+	    sendQueue[ 9] =  -1
         elseif bit32.band(setValueSet,0x00FF) == 1 then
 	    sendQueue[ 1] = 132
 	    sendQueue[ 2] = 133
@@ -552,6 +555,8 @@ protocol.TDInit = function(ValueSet)
         if string.find(radio, "-simu") ~= nil then
             simulator = 1
             TDInitSimValues()
+            sendQueue[ 1] =  -1
+            packet_cnt = 1
         else
             simulator = 0
         end
@@ -632,6 +637,10 @@ end
 
 
 protocol.TDPollValue = function()
+    local sensorId
+    local frameId
+    local appId
+    local value
 --> simulator
     if simulator == 1 then
         if wait > 0 then
@@ -640,9 +649,8 @@ protocol.TDPollValue = function()
 	end
 	
 	if sendQueue[packet_cnt] ~= -1 then
-	    local appId = sendQueue[packet_cnt]
+	    appId = sendQueue[packet_cnt]
 	    packet_cnt = packet_cnt + 1
-	    
             if bit32.band(setValueSet,0xF000) == 0x0000 then
 	        value = sim_paramset_1[appId]
             elseif bit32.band(setValueSet,0xF000) == 0x4000 then
@@ -655,7 +663,7 @@ protocol.TDPollValue = function()
 	return 0, 0
     end
 --< simulator
-    local sensorId, frameId, appId, value = sportTelemetryPop()
+    sensorId, frameId, appId, value = sportTelemetryPop()
     if sensorId == TD_TX_SENSOR_ID and frameId == REPLY_FRAME_ID then
 	return appId, value
     end

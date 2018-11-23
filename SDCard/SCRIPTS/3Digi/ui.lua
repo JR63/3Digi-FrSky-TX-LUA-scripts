@@ -88,10 +88,9 @@ local function getMessageText(value)
 end
 
 
-local function handleSpecial(appId, value)
-    -- TODO appId = bit32.band(appId,0x00FF)
+local function handleSpecial(param, value)
     -- version response
-    if appId == SPECIAL_VERSION then
+    if param == SPECIAL_VERSION then
 	version = ""
 	version = version..bit32.rshift(bit32.band(value,0x000000FF),  0).."."
 	version = version..bit32.rshift(bit32.band(value,0x0000FF00),  8).."."
@@ -102,19 +101,19 @@ local function handleSpecial(appId, value)
 	clearPageData()
     end
     -- serial part 1 response
-    if appId == SPECIAL_SERIAL_PART_1 then
+    if param == SPECIAL_SERIAL_PART_1 then
 	serialPart1 = value
     end
     -- serial part 2 response
-    if appId == SPECIAL_SERIAL_PART_2 then
+    if param == SPECIAL_SERIAL_PART_2 then
 	serialPart2 = value
     end
     -- serial part 3 response
-    if appId == SPECIAL_SERIAL_PART_3 then
+    if param == SPECIAL_SERIAL_PART_3 then
 	serialPart3 = value
     end
     -- save response
-    if appId == SPECIAL_SAVE_RESPONSE then
+    if param == SPECIAL_SAVE_RESPONSE then
         if value == 1 then
 	    saveRetries = 100
 	end
@@ -203,32 +202,33 @@ local function pollValues()
     local cnt_max = 9
     local appId, value = protocol.TDPollValue()
     while appId ~= 0 and cnt < cnt_max do
+        local param = bit32.band(appId,0x00FF)
         cnt = cnt + 1
-	handleSpecial(appId, value)
+	handleSpecial(param, value)
 	if comState == comStates.versionOk and Page ~= nil then
+            handlePageSkip(param, value)
             for i=1,#(Page.fields) do
 	        local f = Page.fields[i]
 	        local match = 0
 	        if f.index ~= nil then
-                    if f.param == bit32.band(appId,0x00FF) and f.index == bit32.rshift(bit32.band(appId,0x0F00), 8) then
+                    if f.param == param and f.index == bit32.rshift(bit32.band(appId,0x0F00), 8) then
 	                match = 1
 		    end
 	        else
-	            if f.param == bit32.band(appId,0x00FF) then
+	            if f.param == param then
 	                match = 1
                     end
 	        end
 	        if match == 1 then
 		    if f.value == nil then
 			if f.index ~= nil then
-			    paramCheck = paramCheck + (32-i) * (bit32.band(appId,0x00FF)+i*f.index)
+			    paramCheck = paramCheck + (32-i) * (param+i*f.index)
 			elseif f.bitmask ~= nil then
-			    paramCheck = paramCheck + (32-i) * (bit32.band(appId,0x00FF)+i*f.bitmask)
+			    paramCheck = paramCheck + (32-i) * (param+i*f.bitmask)
 			else
-			    paramCheck = paramCheck + (32-i) * bit32.band(appId,0x00FF)
+			    paramCheck = paramCheck + (32-i) * param
 			end
 		    end
-		    handlePageSkip(f.param, value)
 		    local calculated = value
 		    calculated = handleInfo(f, calculated)
 		    calculated = handleSigned(f, calculated)
