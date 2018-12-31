@@ -59,7 +59,7 @@ MenuText_en = {
     "Parameter Set 2",
     "Parameter Set 3",
     "",
-    "Save vales permanently",
+    "Save values permanently",
 }
 
 SaveBoxText = {
