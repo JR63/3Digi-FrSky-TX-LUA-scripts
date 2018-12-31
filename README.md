@@ -72,6 +72,41 @@ And here you can see the real thing (german version):
 <img src="https://github.com/JR63/3Digi-FrSky-TX-LUA-scripts/blob/master/Images/IMG_001.jpg">
 
 
+## Usage and navigation
+
+Long press Enter button: Enter menu screen.
+
+You can choose between 'Parameter Set 1-3' and 'Save values permanently'.
+
+Press Enter button after selection.
+
+
+Press Page button: Next screen.
+
+
+While marker is not blinking:
+
+
+Press - or + button or turn wheel left / right: Select item to edit.
+
+Press Enter button: Edit highlighted value (starts blinking).
+
+
+While marker is blinking:
+
+
+Press - or + button or turn wheel left / right: Choose new value for selected item.
+
+Press Enter button: Send new value for selected item temporarily (stops blinking).
+
+
+Remember:
+
+The new values are stored only temporarily for testing.
+
+To save them permanetly you have to long press the Enter button, choose 'Save values permanently' and press the Enter button again.
+
+
 ## Adding the main script as a telemetry page
 
 Setting up the main script as a telemetry page will enable access at the press of a button.
