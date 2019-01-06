@@ -95,7 +95,7 @@ local function handleSpecial(param, value)
 	version = version..bit32.rshift(bit32.band(value,0x000000FF),  0).."."
 	version = version..bit32.rshift(bit32.band(value,0x0000FF00),  8).."."
 	version = version..bit32.rshift(bit32.band(value,0x00FF0000), 16)
-	if version == "2.0.0" then
+	if version == "2.0.0" or version == "2.0.2" then
 	    comState = comStates.versionOk
 	end
 	clearPageData()
