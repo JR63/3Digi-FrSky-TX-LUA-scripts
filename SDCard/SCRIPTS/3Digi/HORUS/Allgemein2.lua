@@ -49,8 +49,8 @@ return {
       -- Qualitaet
       { x = 240, y = 120, min =   0, max = 20000, param =  46, type = "bar",   to = MIDSIZE, ro = 1 },
       -- Wert
-      { x = 290, y = 140, min = -30, max =  30, param =  44, type = "int32_t", to = MIDSIZE },
-      { x = 350, y = 140, min = -30, max =  30, param =  45, type = "int32_t", to = MIDSIZE },
+      { x = 340, y = 140, min = -30, max =  30, param =  44, type = "int32_t", to = MIDSIZE + RIGHT },
+      { x = 400, y = 140, min = -30, max =  30, param =  45, type = "int32_t", to = MIDSIZE + RIGHT },
       -- Optimierer aktivieren
       { x = 240, y = 215, min =   0, max =   1, param =  47, type = "bool",    to = MIDSIZE, valuetext = { [0] = "Deaktiviert", "Aktiviert" }, valuetext_en = { [0] = "Deactivated", "Activated" } },
    },

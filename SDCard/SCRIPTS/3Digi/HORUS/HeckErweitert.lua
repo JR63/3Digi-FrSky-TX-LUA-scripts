@@ -44,13 +44,13 @@ return {
    param_check = 31765,
    fields = {
       -- Extra Empfindlichkeit Links
-      { x =  90, y =  70, min = -16, max =  16, param = 158, type = "int8_t",  to = MIDSIZE },
+      { x = 120, y =  70, min = -16, max =  16, param = 158, type = "int8_t",  to = MIDSIZE + RIGHT },
       -- Extra Empfindlichkeit Rechts
-      { x = 240, y =  70, min = -16, max =  16, param = 159, type = "int8_t",  to = MIDSIZE },
+      { x = 270, y =  70, min = -16, max =  16, param = 159, type = "int8_t",  to = MIDSIZE + RIGHT },
       -- Extra Empfindlichkeit Start
-      { x =  90, y =  95, min = -16, max =  16, param = 160, type = "int8_t",  to = MIDSIZE },
+      { x = 120, y =  95, min = -16, max =  16, param = 160, type = "int8_t",  to = MIDSIZE + RIGHT },
       -- Extra Empfindlichkeit Stopp
-      { x = 240, y =  95, min = -16, max =  16, param = 161, type = "int8_t",  to = MIDSIZE },
+      { x = 270, y =  95, min = -16, max =  16, param = 161, type = "int8_t",  to = MIDSIZE + RIGHT },
       -- Drehmomentausgleich Von Pitch
       { x = 120, y = 185, min =   0, max = 125, param = 167, type = "uint8_t", to = MIDSIZE },
       -- Drehmomentausgleich Von Roll

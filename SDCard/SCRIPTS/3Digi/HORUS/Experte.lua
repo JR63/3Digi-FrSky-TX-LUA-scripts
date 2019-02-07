@@ -50,21 +50,21 @@ return {
    param_check = 48462,
    fields = {
       -- Roll
-      { x = 180, y =  90, min =   0, max = 128, param = 137, type = "uint8_t", to = MIDSIZE },
-      { x = 180, y = 115, min =   0, max = 128, param = 134, type = "uint8_t", to = MIDSIZE, valuetext = { [128] = "HH" } },
-      { x = 180, y = 140, min =   0, max =   1, param = 135, type = "bool",                  valuetext = { [0] = "Einfach", "Erweitert" }, valuetext_en = { [0] = "Simple", "Extended" } },
-      { x = 180, y = 165, min =   1, max =  64, param = 138, type = "uint8_t", to = MIDSIZE },
+      { x = 230, y =  90, min =   0, max = 128, param = 137, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 230, y = 115, min =   0, max = 128, param = 134, type = "uint8_t", to = MIDSIZE + RIGHT, valuetext = { [128] = "HH" } },
+      { x = 180, y = 140, min =   0, max =   1, param = 135, type = "bool",                          valuetext = { [0] = "Einfach", "Erweitert" }, valuetext_en = { [0] = "Simple", "Extended" } },
+      { x = 230, y = 165, min =   1, max =  64, param = 138, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- Nick
-      { x = 280, y =  90, min =   0, max = 128, param = 149, type = "uint8_t", to = MIDSIZE },
-      { x = 280, y = 115, min =   0, max = 128, param = 146, type = "uint8_t", to = MIDSIZE, valuetext = { [128] = "HH" } },
-      { x = 280, y = 140, min =   0, max =   1, param = 147, type = "bool",                  valuetext = { [0] = "Einfach", "Erweitert" }, valuetext_en = { [0] = "Simple", "Extended" } },
-      { x = 280, y = 165, min =   1, max =  64, param = 150, type = "uint8_t", to = MIDSIZE },
-      { x = 280, y = 220, min =   0, max = 128, param = 151, type = "uint8_t", to = MIDSIZE },
-      { x = 280, y = 245, min =   0, max = 128, param = 185, type = "uint8_t", to = MIDSIZE },
+      { x = 330, y =  90, min =   0, max = 128, param = 149, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 330, y = 115, min =   0, max = 128, param = 146, type = "uint8_t", to = MIDSIZE + RIGHT, valuetext = { [128] = "HH" } },
+      { x = 280, y = 140, min =   0, max =   1, param = 147, type = "bool",                          valuetext = { [0] = "Einfach", "Erweitert" }, valuetext_en = { [0] = "Simple", "Extended" } },
+      { x = 330, y = 165, min =   1, max =  64, param = 150, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 330, y = 220, min =   0, max = 128, param = 151, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 330, y = 245, min =   0, max = 128, param = 185, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- Heck
-      { x = 380, y =  90, min =   0, max = 128, param = 163, type = "uint8_t", to = MIDSIZE },
-      { x = 380, y = 115, min =   0, max = 128, param = 162, type = "uint8_t", to = MIDSIZE, valuetext = { [128] = "HH" } },
+      { x = 430, y =  90, min =   0, max = 128, param = 163, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 430, y = 115, min =   0, max = 128, param = 162, type = "uint8_t", to = MIDSIZE + RIGHT, valuetext = { [128] = "HH" } },
       
-      { x = 380, y = 165, min =   1, max =  32, param = 164, type = "uint8_t", to = MIDSIZE },
+      { x = 430, y = 165, min =   1, max =  32, param = 164, type = "uint8_t", to = MIDSIZE + RIGHT },
    },
 }

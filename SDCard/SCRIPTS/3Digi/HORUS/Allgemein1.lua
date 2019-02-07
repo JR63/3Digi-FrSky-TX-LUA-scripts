@@ -47,16 +47,16 @@ return {
    param_check = 36854,
    fields = {
       -- Ruhig <-> Dynamisch
-      { x = 290, y =  90, min =   1, max =   5, param = 121, index = 0, type = "uint8_t", to = MIDSIZE },
-      { x = 350, y =  90, min =   1, max =   5, param = 121, index = 1, type = "uint8_t", to = MIDSIZE },
-      { x = 410, y =  90, min =   1, max =   5, param = 121, index = 2, type = "uint8_t", to = MIDSIZE },
+      { x = 340, y =  90, min =   1, max =   5, param = 121, index = 0, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 400, y =  90, min =   1, max =   5, param = 121, index = 1, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 460, y =  90, min =   1, max =   5, param = 121, index = 2, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- Trimm-Flug aktivieren
       { x = 240, y = 175, min =   0, max =   1, param = 196, type = "bool",    to = MIDSIZE, valuetext = { [0] = "Deaktiviert", "Aktiviert" }, valuetext_en = { [0] = "Deactivated", "Activated" } },
       -- Qualitaet
       { x = 240, y = 205, min =   0, max = 20000, param = 197, type = "bar",   to = MIDSIZE, ro = 1 },
       -- Trimmwert
-      { x = 290, y = 225, min =-200, max = 200, param = 198, type = "int32_t", to = MIDSIZE },
-      { x = 350, y = 225, min =-200, max = 200, param = 199, type = "int32_t", to = MIDSIZE },
-      { x = 410, y = 225, min =-500, max = 500, param = 200, type = "int32_t", to = MIDSIZE },
+      { x = 340, y = 225, min =-200, max = 200, param = 198, type = "int32_t", to = MIDSIZE + RIGHT },
+      { x = 400, y = 225, min =-200, max = 200, param = 199, type = "int32_t", to = MIDSIZE + RIGHT },
+      { x = 460, y = 225, min =-500, max = 500, param = 200, type = "int32_t", to = MIDSIZE + RIGHT },
    },
 }

@@ -44,16 +44,16 @@ return {
    param_check = 31284,
    fields = {
       -- Sensoren Totband
-      { x = 180, y =  90, min =   0, max =  30, param = 125, index = 0, type = "uint8_t", to = MIDSIZE },
-      { x = 280, y =  90, min =   0, max =  30, param = 125, index = 1, type = "uint8_t", to = MIDSIZE },
-      { x = 380, y =  90, min =   0, max =  30, param = 125, index = 2, type = "uint8_t", to = MIDSIZE },
+      { x = 230, y =  90, min =   0, max =  30, param = 125, index = 0, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 330, y =  90, min =   0, max =  30, param = 125, index = 1, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 430, y =  90, min =   0, max =  30, param = 125, index = 2, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- Sensoren Filter
-      { x = 180, y = 115, min =   0, max =  50, param = 123, index = 0, type = "uint8_t", to = MIDSIZE },
-      { x = 280, y = 115, min =   0, max =  50, param = 123, index = 1, type = "uint8_t", to = MIDSIZE },
-      { x = 380, y = 115, min =   0, max =  50, param = 123, index = 2, type = "uint8_t", to = MIDSIZE },
+      { x = 230, y = 115, min =   0, max =  50, param = 123, index = 0, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 330, y = 115, min =   0, max =  50, param = 123, index = 1, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 430, y = 115, min =   0, max =  50, param = 123, index = 2, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- RC Eingang Totband
-      { x = 180, y = 185, min =   0, max =  50, param = 122, index = 0, type = "uint8_t", to = MIDSIZE },
-      { x = 280, y = 185, min =   0, max =  50, param = 122, index = 1, type = "uint8_t", to = MIDSIZE },
-      { x = 380, y = 185, min =   0, max =  50, param = 122, index = 2, type = "uint8_t", to = MIDSIZE },
+      { x = 230, y = 185, min =   0, max =  50, param = 122, index = 0, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 330, y = 185, min =   0, max =  50, param = 122, index = 1, type = "uint8_t", to = MIDSIZE + RIGHT },
+      { x = 430, y = 185, min =   0, max =  50, param = 122, index = 2, type = "uint8_t", to = MIDSIZE + RIGHT },
    },
 }

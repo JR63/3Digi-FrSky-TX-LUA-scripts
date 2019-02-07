@@ -44,12 +44,12 @@ return {
       -- Pirouetten Optimierung aktivieren
       { x = 310, y =  70, min =   0, max =   1, param = 168, type = "bool",    to = MIDSIZE, valuetext = { [0] = "Deaktiviert", "Aktiviert" }, valuetext_en = { [0] = "Deactivated", "Activated" } },
       -- Cyclic Ring aktivieren
-      { x = 310, y = 130, min =   0, max =   1, param = 126, type = "bool",    to = MIDSIZE, valuetext = { [0] = "Aus", "An" }, valuetext_en = { [0] = "Off", "On" } },
+      { x = 360, y = 130, min =   0, max =   1, param = 126, type = "bool",    to = MIDSIZE + RIGHT, valuetext = { [0] = "Aus", "An" }, valuetext_en = { [0] = "Off", "On" } },
       -- Zyklische Begrenzung
-      { x = 310, y = 155, min =  50, max = 100, param = 127, type = "uint8_t", to = MIDSIZE },
+      { x = 360, y = 155, min =  50, max = 100, param = 127, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- Faktor
-      { x = 310, y = 215, min =   0, max =  64, param = 169, type = "uint8_t", to = MIDSIZE },
+      { x = 360, y = 215, min =   0, max =  64, param = 169, type = "uint8_t", to = MIDSIZE + RIGHT },
       -- Vorhaltezeit
-      { x = 310, y = 240, min =   1, max =  32, param = 170, type = "uint8_t", to = MIDSIZE },
+      { x = 360, y = 240, min =   1, max =  32, param = 170, type = "uint8_t", to = MIDSIZE + RIGHT },
    },
 }
