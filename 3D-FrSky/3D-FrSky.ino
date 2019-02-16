@@ -3,7 +3,7 @@
  * @author     Joerg-D. Rothfuchs
  * @brief      Implements 3Digi to FrSky SmartPort converter.
  * @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
- * @see        Version v1.00 - 2018/11/12
+ * @see        Version v1.00 - 2019/02/15
  *
  *             Usage at your own risk! No warranty for anything!
  *
@@ -169,7 +169,7 @@ static uint16_t value_set_06[] = {
 
 
 static uint16_t value_set_07[] = {
-    248, 0
+    219, 248, 0
 };
 
 

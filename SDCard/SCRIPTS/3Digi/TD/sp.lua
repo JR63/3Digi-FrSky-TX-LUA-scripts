@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/13
+-- @see        Version V1.00 - 2019/02/15
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -489,8 +489,9 @@ TDQueue = function()
 	    sendQueue[ 7] = 166
 	    sendQueue[ 8] =  -1
         elseif bit32.band(setValueSet,0x00FF) == 7 then
-	    sendQueue[ 1] = 248
-	    sendQueue[ 2] =  -1
+	    sendQueue[ 1] = 219
+	    sendQueue[ 2] = 248
+	    sendQueue[ 3] =  -1
         elseif bit32.band(setValueSet,0x00FF) == 8 then
 	    sendQueue[ 1] = 219
 	    sendQueue[ 2] = 221

@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/13
+-- @see        Version V1.00 - 2019/02/15
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -30,9 +30,11 @@ PageFiles = {
 }
 
 PageSkip = {
-      { page = "IVerlaufRoll.lua", param = 135, bitmask = 0x01 },
-      { page = "IVerlaufNick.lua", param = 147, bitmask = 0x01 },
-      { page = "PitchKurve.lua",   param = 219, bitmask = 0x02 },
+      { page = "IVerlaufRoll.lua",     param = 135, bitmask = 0x01 },
+      { page = "IVerlaufNick.lua",     param = 147, bitmask = 0x01 },
+      { page = "Drehzahlregelung.lua", param = 219, bitmask = 0x01 },
+      { page = "PitchKurve.lua",       param = 219, bitmask = 0x01 },
+      { page = "PitchKurve.lua",       param = 219, bitmask = 0x02 },
 }
 
 TitleText = {
