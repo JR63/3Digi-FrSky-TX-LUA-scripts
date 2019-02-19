@@ -1,6 +1,6 @@
 /*
   FrSky 3Digi Tx class for Teensy 3.x/LC and 328P based boards (e.g. Pro Mini, Nano, Uno)
-  (C) by Joerg-D. Rothfuchs 20181105
+  (C) by Joerg-D. Rothfuchs 20190219
   Not for commercial use
 */
 
@@ -13,11 +13,12 @@ void FrSkySportSensor3DigiTx::send(FrSkySportSingleWireSerial& serial, uint8_t s
   if (sensorId == sId) {
     if (queueCnt > 0) {
       queueCnt--;
-      serial.sendHeader(sId);
       serial.sendData(appId[queueOut], data[queueOut]);
       queueOut++;
       if (queueOut >= QUEUE_DEPTH)
         queueOut = 0;
+    } else {
+      serial.sendEmpty(0);
     }
   }
 }
