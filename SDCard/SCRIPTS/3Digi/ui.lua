@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/14
+-- @see        Version V1.00 - 2019/02/18
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -63,7 +63,7 @@ local function clearPageData()
     paramCheck = 0
     pageState = pageStates.display
     saveTS = 0
-    Page = assert(loadScript(radio.templateHome..PageFiles[currentPage]))()
+    Page = assert(loadScript(radio.templateHome..PageFiles[currentPage].page))()
     Page.graph_values = {}
     if comState == comStates.versionOk then
         protocol.TDGetValueSet(Page.value_set + (paramset - 1) * 0x4000)
@@ -324,7 +324,7 @@ local function incPage(inc)
    currentPage = incMax(currentPage, inc, #(PageFiles))
    
    for i=1,#(PageSkip) do
-      if PageSkip[i].page == PageFiles[currentPage] then
+      if PageSkip[i].page == PageFiles[currentPage].page then
 	 if PageSkip[i].skip == 1 then
             incPage(inc)
 	 end
@@ -425,9 +425,21 @@ end
 local function drawScreen()
     local t
     if language == "en" and Page.title_en then
-        drawScreenTitle(TitleText_en.pre..paramset..TitleText_en.div..Page.title_en)
+	if PageFiles[currentPage].page_type == 1 then
+	  drawScreenTitle(TitleText_en.pre1..TitleText_en.div..Page.title_en)
+	elseif PageFiles[currentPage].page_type == 2 then
+	  drawScreenTitle(TitleText_en.pre2..TitleText_en.div..Page.title_en)
+	else
+	  drawScreenTitle(TitleText_en.pre4..paramset..TitleText_en.div..Page.title_en)
+	end
     else
-        drawScreenTitle(TitleText.pre..paramset..TitleText.div..Page.title)
+	if PageFiles[currentPage].page_type == 1 then
+	  drawScreenTitle(TitleText.pre1..TitleText.div..Page.title)
+	elseif PageFiles[currentPage].page_type == 2 then
+	  drawScreenTitle(TitleText.pre2..TitleText.div..Page.title)
+	else
+	  drawScreenTitle(TitleText.pre4..paramset..TitleText.div..Page.title)
+	end
     end
     for i=1,#(Page.topic) do
         if language == "en" and Page.topic_en then

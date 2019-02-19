@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2019/02/15
+-- @see        Version V1.00 - 2019/02/18
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -12,20 +12,20 @@ TEXT_COLOR = 2
 SaveTextSize = DBLSIZE
 
 PageFiles = {
-    "Information.lua",
-    "Normal.lua",
-    "Experte.lua",
-    "IVerlaufRoll.lua",
-    "IVerlaufNick.lua",
-    "Taumelscheibe.lua",
-    "HeckErweitert.lua",
-    "AutoLevel.lua",
-    "Drehzahlregelung1.lua",
-    "Drehzahlregelung2.lua",
-    "PitchKurve.lua",
-    "Allgemein1.lua",
-    "Allgemein2.lua",
-    "Sensoren.lua",
+      { page = "Information.lua",		page_type = 1 },
+      { page = "Normal.lua",			page_type = 4 },
+      { page = "Experte.lua",			page_type = 4 },
+      { page = "IVerlaufRoll.lua",		page_type = 4 },
+      { page = "IVerlaufNick.lua",		page_type = 4 },
+      { page = "Taumelscheibe.lua",		page_type = 4 },
+      { page = "HeckErweitert.lua",		page_type = 4 },
+      { page = "AutoLevel.lua",			page_type = 4 },
+      { page = "Drehzahlregelung1.lua",		page_type = 4 },
+      { page = "Drehzahlregelung2.lua",		page_type = 4 },
+      { page = "PitchKurve.lua",		page_type = 4 },
+      { page = "Allgemein1.lua",		page_type = 4 },
+      { page = "Allgemein2.lua",		page_type = 4 },
+      { page = "Sensoren.lua",			page_type = 4 },
 }
 
 PageSkip = {
@@ -38,12 +38,16 @@ PageSkip = {
 }
 
 TitleText = {
-    pre = "3Digi/PS",
+    pre1 = "3Digi",
+    pre2 = "3Digi",
+    pre4 = "3Digi/PS",
     div = "/",
 }
 
 TitleText_en = {
-    pre = "3Digi/PS",
+    pre1 = "3Digi",
+    pre2 = "3Digi",
+    pre4 = "3Digi/PS",
     div = "/",
 }
 
