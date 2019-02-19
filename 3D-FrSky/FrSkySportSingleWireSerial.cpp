@@ -218,9 +218,8 @@ void FrSkySportSingleWireSerial::sendEmpty(uint16_t dataTypeId)
     sendByte(bytes[1]);
     for(uint8_t i = 0; i < 4; i++) sendByte(0x00);
 #else
-    // oXs version
-    sendByte(FRSKY_SENSOR_DATA_FRAME_ID_TX);
-    for(uint8_t i = 0; i < 6; i++) sendByte(0x00);
+    // JR version
+    for (uint8_t i = 0; i < 7; i++) sendByte(0x00);
 #endif
     sendCrc();
     port->flush();
