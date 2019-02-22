@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2019/02/15
+-- @see        Version V1.00 - 2019/02/21
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -12,8 +12,8 @@
 -- Wrong values result in wrong mapping and may cause unpredictable FBL behaviour.
 
 return {
-   title = "AutoLevel",
-   title_en = "AutoLevel",
+   title = "Aktivierungen",
+   title_en = "Activations",
    topic = {
       { t = "AutoLevel Aktivierung",			x =  10, y =  12 },
       { t = "Drehzahlreg. Aktivierung",			x =  10, y =  40 },

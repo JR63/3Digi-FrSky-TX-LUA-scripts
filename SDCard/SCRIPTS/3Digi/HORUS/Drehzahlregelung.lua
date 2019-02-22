@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2018/11/07
+-- @see        Version V1.00 - 2019/02/21
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -15,14 +15,14 @@ return {
    title = "Drehzahlregelung",
    title_en = "Governor",
    topic = {
-      { t = "Aktivierung",				x =  10, y =  45 },
-      { t = "Regelung",					x =  10, y =  95 },
-      { t = "Kompensation",				x =  10, y = 170 },
+      { t = "Drehzahlregelung Aktivierung",		x =  10, y =  45 },
+      { t = "Drehzahlregelung Regelung",		x =  10, y =  95 },
+      { t = "Drehzahlregelung Kompensation",		x =  10, y = 170 },
    },
    topic_en = {
-      { t = "Activation",				x =  10, y =  45 },
-      { t = "Governor control",					x =  10, y =  95 },
-      { t = "Compensation",				x =  10, y = 170 },
+      { t = "Governor Activation",			x =  10, y =  45 },
+      { t = "Governor Governor control",		x =  10, y =  95 },
+      { t = "Governor Compensation",			x =  10, y = 170 },
    },
    text = {
       { t = "Drehzahlregelung aktivieren",		x =  20, y =  68 },
