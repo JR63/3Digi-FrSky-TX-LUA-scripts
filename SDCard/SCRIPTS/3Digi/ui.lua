@@ -2,7 +2,7 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2019/02/21
+-- @see        Version V1.00 - 2019/02/22
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
@@ -75,11 +75,23 @@ local function getMessageText(value)
         l = 2
     end
     if value >= 2000 then
-        return ErrorText[value-2000][l]
+        if (value-2000) <= #(ErrorText) then
+          return ErrorText[value-2000][l]
+        else
+          return "- -"
+        end
     elseif value >= 1000 then
-        return WarningText[value-1000][l]
+        if (value-1000) <= #(WarningText) then
+          return WarningText[value-1000][l]
+        else
+          return "- -"
+        end
     else
-        return InfoText[value+1][l]
+        if (value+1) <= #(InfoText) then
+          return InfoText[value+1][l]
+        else
+          return "- -"
+        end
     end
 end
 
