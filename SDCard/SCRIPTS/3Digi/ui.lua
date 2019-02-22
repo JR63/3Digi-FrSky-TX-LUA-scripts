@@ -2,17 +2,11 @@
 -- @brief      3Digi FrSky-TX LUA scripts
 -- @see
 -- @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
--- @see        Version V1.00 - 2019/02/18
+-- @see        Version V1.00 - 2019/02/21
 -- @see        UI concept initially based on betaflight-tx-lua-scripts.
 -- @see
 -- @see        Usage at your own risk! No warranty for anything!
 -- @see
-
---
--- TODOs
---
---	evtl. key events optimieren
---
 
 
 local userEvent = assert(loadScript(SCRIPT_HOME.."/events.lua"))()
@@ -34,6 +28,7 @@ local pageStates =
 
 local comState = comStates.init
 local comTS = 0
+local getValueSetTS = 0
 local version = ""
 local serialPart1 = 0
 local serialPart2 = 0
@@ -66,6 +61,7 @@ local function clearPageData()
     Page = assert(loadScript(radio.templateHome..PageFiles[currentPage].page))()
     Page.graph_values = {}
     if comState == comStates.versionOk then
+        getValueSetTS = getTime()
         protocol.TDGetValueSet(Page.value_set + (paramset - 1) * 0x4000)
     end
 end
@@ -560,18 +556,22 @@ function run_ui(event)
 	version = "-.-.-"
     end
     
-    if (comState == comStates.versionCheck) then
-        if (comTS + 50 < now) then
-	    comTS = now
-            protocol.TDGetVersion()
-        end
+    -- if comState == comStates.versionCheck and comTS older than 500ms
+    if (comState == comStates.versionCheck) and (comTS + 50 < now) then
+        comTS = getTime()
+        protocol.TDGetVersion()
+    end
+    
+    -- if comState == comStates.versionOk and getValueSetTS older than 3000ms without getting all needed parameters
+    if (comState == comStates.versionOk) and (getValueSetTS + 300 < now) and (paramCheck ~= Page.param_check) then
+        clearPageData()
     end
     
     -- if lastRunTS older than 500ms
-    if lastRunTS + 50 < now then
+    if (lastRunTS + 50 < now) then
         clearPageData()
     end
-    lastRunTS = now
+    lastRunTS = getTime()
     
     if (pageState == pageStates.saving) then
         if (saveTS + saveTimeout < now) then
