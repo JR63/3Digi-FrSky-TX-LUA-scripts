@@ -1,13 +1,35 @@
 /**
  *
  * @author     Joerg-D. Rothfuchs
- * @brief      Implements 3Digi to FrSky SmartPort converter.
+ * @brief      Implements 3Digi OR GPS (UBX) to FrSky SmartPort converter.
  * @see        (C) by Joerg-D. Rothfuchs aka JR / JR63
- * @see        Version v1.00 - 2019/02/15
+ * @see        Version v1.10 - 2019/06/11
  *
  *             Usage at your own risk! No warranty for anything!
  *
  *****************************************************************************/
+
+
+//#define GPS_OPTION
+
+
+#ifdef GPS_OPTION
+
+//#define SET_TEST_VALUES
+
+#define GPS_SPEED_2D
+
+#define GPS_AUTO_CONFIG
+
+#define GPS_PROTOCOL_UBX
+
+#define GPS_BAUD_RATE		38400
+
+#define DEVICE_SEARCH		0
+#define DEVICE_3DIGI		1
+#define DEVICE_GPS		2
+
+#endif // GPS_OPTION
 
 
 #define BOARD_LED_MASK		0x20
@@ -23,7 +45,7 @@
 				PORTD |= DEBUG_PIN_MASK;
 
 
-#define SERIAL_BAUD_RATE	115200
+#define TD_BAUD_RATE		115200
 
 
 //#define CRC_USE_TABLE
@@ -57,6 +79,12 @@
 #define SERIAL_XOR				0x80
 
 
+#ifdef GPS_OPTION
+#include "GPS.h"
+#include "FrSkySportSensorGps.h"
+#endif // GPS_OPTION
+
+
 #include "FrSkySportSensor.h"
 #include "FrSkySportBidirectional.h"
 #include "FrSkySportSensor3DigiRx.h"
@@ -83,6 +111,12 @@ struct TDQueueData_t {
 FrSkySportBidirectional bidirectional;                 	// Create bidirectional object
 FrSkySportSensor3DigiRx digiRx;				// Create 3Digi Rx sensor with default ID
 FrSkySportSensor3DigiTx digiTx;				// Create 3Digi Tx sensor with default ID
+
+
+#ifdef GPS_OPTION
+FrSkySportSensorGps gps;				// Create GPS sensor with default ID
+uint8_t serialDeviceDetection = DEVICE_SEARCH;
+#endif // GPS_OPTION
 
 
 /*
@@ -198,6 +232,11 @@ static uint16_t value_set_12[] = {
 };
 
 
+static uint16_t value_set_13[] = {
+    0	// TODO reserved for AutoLevelSettings, put values here
+};
+
+
 static uint16_t* value_set_table[] = {
     value_set_00,
     value_set_01,
@@ -212,7 +251,9 @@ static uint16_t* value_set_table[] = {
     value_set_10,
     value_set_11,
     value_set_12,
+    value_set_13,
 };
+#define VALUE_SET_TABLE_MAX	13
 
 
 #define BUF_SIZE		50
@@ -220,7 +261,7 @@ uint8_t buf[BUF_SIZE];
 uint8_t* bufptr = buf;
 
 
-#define TD_SEND_QUEUE_DEPTH	64
+#define TD_SEND_QUEUE_DEPTH	28
 uint8_t  TDQueueState = READY_FOR_SEND;
 uint8_t  TDSendQueueLastCommand = 0;
 uint16_t TDSendQueueLastParameter = 0;
@@ -388,17 +429,13 @@ void sendTDGetVersion(void)
 
 
 /**
- * @brief  Clear 3Digi Queue
+ * @brief  Empty 3Digi Queue
  */
-void clearTDQueue(void)
+void emptyTDQueue(void)
 {
-	TDQueueState = WAIT_FOR_RESPONSE;
-	TDSendQueueLastCommand = 0;
-	TDSendQueueLastParameter = 0;
 	TDSendQueueIn  = 0;
 	TDSendQueueOut = 0;
 	TDSendQueueCnt = 0;
-	TDQueueState = READY_FOR_SEND;
 }
 
 
@@ -489,6 +526,12 @@ void handleTDFrameType_AA(uint8_t* bptr)
  */
 void handleTDFrameType_00_01(uint8_t* bptr)
 {
+#ifdef GPS_OPTION
+	if (serialDeviceDetection == DEVICE_SEARCH) {
+		serialDeviceDetection = DEVICE_3DIGI;
+	}
+#endif GPS_OPTION
+
 	// 0x00 seems to be the response to the get command frame for negative 7 bit values
 	// 0x01 seems to be the response to the get command frame for positive 8 bit values
 	if (TDSendQueueLastCommand == TD_COMMAND_GET) {
@@ -532,9 +575,6 @@ void handleTDFrameType_31(uint8_t* bptr)
  */
 void receivedGetVersion(void)
 {
-	//clearTDQueue();
-	//digiTx.clearQueue();
-	
 	// get firmware version
 	queueTDCommand(TD_COMMAND_GET_VERSION, 0, 0);
 }
@@ -545,12 +585,16 @@ void receivedGetVersion(void)
  */
 void receivedGetValueSet(void)
 {
-	uint16_t paramset = digiRx.getAppId() & 0xff00;
-	uint16_t *parameterPtr = value_set_table[(digiRx.getAppId() & 0x00ff)];
-	uint16_t parameter = *parameterPtr++;
-	while (parameter != 0) {
-		queueTDCommand(TD_COMMAND_GET, parameter | paramset, 0);
-		parameter = *parameterPtr++;
+	emptyTDQueue();
+	
+	if ((digiRx.getAppId() & 0x00ff) <= VALUE_SET_TABLE_MAX) {
+		uint16_t paramset = digiRx.getAppId() & 0xff00;
+		uint16_t *parameterPtr = value_set_table[(digiRx.getAppId() & 0x00ff)];
+		uint16_t parameter = *parameterPtr++;
+		while (parameter != 0) {
+			queueTDCommand(TD_COMMAND_GET, parameter | paramset, 0);
+			parameter = *parameterPtr++;
+		}
 	}
 }
 
@@ -573,9 +617,6 @@ void receivedSetValue(void)
  */
 void receivedSaveParameter(void)
 {
-	//clearTDQueue();
-	//digiTx.clearQueue();
-	
 	// save values permanently
 	queueTDCommand(TD_COMMAND_SAVE, 0, 0);
 }
@@ -686,6 +727,29 @@ void readTDResponse(void)
 }
 
 
+#ifdef GPS_OPTION
+/**
+ * @brief  set the telemetry data
+ */
+void telemetrySetData(GPS_VALUES* GPSData)
+{
+#ifdef GPS_SPEED_3D
+	uint32_t speed = GPSData->Speed3D;
+#else
+	uint32_t speed = GPSData->Speed2D;
+#endif
+
+	gps.setData(
+		GPSData->Latitude,
+		GPSData->Longitude,
+		GPSData->Altitude / 10,
+		speed * 700 / 36,
+		GPSData->Heading / 1000
+	);
+}
+#endif // GPS_OPTION
+
+
 /**
  * @brief  setup
  */
@@ -694,8 +758,17 @@ void setup(void)
   BOARD_LED_HI
   DEBUG_PIN_LO
   
-  Serial.begin(SERIAL_BAUD_RATE);
+  Serial.begin(TD_BAUD_RATE);
 
+#ifdef GPS_OPTION
+// Configure the telemetry serial port and sensors
+#if defined(__MK20DX128__) || defined(__MK20DX256__) || defined(__MKL26Z64__) || defined(__MK66FX1M0__) || defined(__MK64FX512__)
+  bidirectional.begin(FrSkySportSingleWireSerial::SERIAL_3, &digiRx, &digiTx, &gps);		// set rx sensors first !
+#else
+  bidirectional.begin(FrSkySportSingleWireSerial::SOFT_SERIAL_PIN_3, &digiRx, &digiTx, &gps);	// set rx sensors first !
+#endif
+  bidirectional.setRxCount(1);									// set the number of rx sensors
+#else // GPS_OPTION
 // Configure the telemetry serial port and sensors
 #if defined(__MK20DX128__) || defined(__MK20DX256__) || defined(__MKL26Z64__) || defined(__MK66FX1M0__) || defined(__MK64FX512__)
   bidirectional.begin(FrSkySportSingleWireSerial::SERIAL_3, &digiRx, &digiTx);			// set rx sensors first !
@@ -703,6 +776,7 @@ void setup(void)
   bidirectional.begin(FrSkySportSingleWireSerial::SOFT_SERIAL_PIN_3, &digiRx, &digiTx);		// set rx sensors first !
 #endif
   bidirectional.setRxCount(1);									// set the number of rx sensors
+#endif // GPS_OPTION
 }
 
 
@@ -711,7 +785,72 @@ void setup(void)
  */
 void loop(void)
 {
+#ifdef GPS_OPTION
+/*
+	Board LED behavior:
+		on			after setup
+		
+		if 3Digi connected:
+			toggling	for every 3Digi SmartPort packet received
+		
+		if GPS connected:
+			off		after about 20 seconds and while doing GPS autoconfig
+			flickering	GPS autoconfig successful and while waiting for GPS data valid
+			on		GPS data valid
+		
+		if noting or invalid GPS connected:
+			off		after about 20 seconds
+*/
+	static uint8_t TD_request_cnt = 0;
+	static unsigned long TD_last_request = 0;
+	static struct GPS_VALUES* GPSData = NULL;
+	
+#ifdef SET_TEST_VALUES
+	serialDeviceDetection = DEVICE_GPS;
+#endif
+
+	processSmartPort();
+	if (serialDeviceDetection == DEVICE_3DIGI) {
+		readTDResponse();
+		dequeueTDCommand();
+	} else if (serialDeviceDetection == DEVICE_GPS) {
+#ifdef GPS_AUTO_CONFIG
+		if (GPSAutoConfigStateMachine()) {
+			BOARD_LED_HI
+		}
+#endif
+		GPSData = readGPS();
+		if (GPSData->HomeValid && GPSData->Status > GPSPOSITIONSENSOR_STATUS_NOFIX) {
+			BOARD_LED_HI
+			telemetrySetData(GPSData);
+		} else {
+			BOARD_LED_LO
+		}
+	} else {								// check for 3Digi, if none is responding within some seconds, assume GPS
+		if (millis() - TD_last_request > 1000) {
+			if (TD_request_cnt > 20) {
+				serialDeviceDetection = DEVICE_GPS;
+				BOARD_LED_LO
+			} else {
+				TD_last_request = millis();
+				queueTDCommand(TD_COMMAND_GET, 202, 0);		// queue request for 'Version Hardware'
+				dequeueTDCommand();				// dequeue the request
+				TDSendQueueLastCommand = 0;			// do not transfer the answer back via SmartPort
+				TD_request_cnt++;
+			}
+		}
+		readTDResponse();
+	}
+#else // GPS_OPTION
+/*
+	Board LED behavior:
+		on			after setup
+		
+		if 3Digi connected:
+			toggling	at every 3Digi SmartPort packet received
+*/
 	processSmartPort();
 	readTDResponse();
 	dequeueTDCommand();
+#endif // GPS_OPTION
 }

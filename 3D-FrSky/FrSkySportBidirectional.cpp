@@ -1,7 +1,7 @@
 /*
   FrSky SmartPort bidirectional class for Teensy 3.x/LC and 328P based boards (e.g. Pro Mini, Nano, Uno)
   based on Pawelsky code
-  (C) by Joerg-D. Rothfuchs 20181105
+  (C) by Joerg-D. Rothfuchs 20190611
   Not for commercial use
 */
 
@@ -78,7 +78,8 @@ void FrSkySportBidirectional::setRxCount(uint8_t count)
 uint16_t FrSkySportBidirectional::processSmartPort()
 {
   uint16_t result = SENSOR_NO_DATA_ID;
-
+  uint32_t now = millis();
+  
   if (serial.port != NULL) {
     if (serial.port->available()) {
       uint8_t byte = serial.port->read();
@@ -110,7 +111,7 @@ uint16_t FrSkySportBidirectional::processSmartPort()
       if (state == FRAME_ID) {
         // Send (possibly)
 	for (uint8_t i = rxCount; i < sensorCount; i++) {
-	  sensors[i]->send(serial, sensorId, 0);
+	  sensors[i]->send(serial, sensorId, now);
         }
       }
     }

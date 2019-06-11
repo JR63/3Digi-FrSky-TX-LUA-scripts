@@ -1,6 +1,6 @@
 /*
   FrSky 3Digi Tx class for Teensy 3.x/LC and 328P based boards (e.g. Pro Mini, Nano, Uno)
-  (C) by Joerg-D. Rothfuchs 20181105
+  (C) by Joerg-D. Rothfuchs 20190611
   Not for commercial use
 */
 
@@ -11,7 +11,7 @@
 
 #define DIGITX_DEFAULT_ID	ID28
 
-#define QUEUE_DEPTH		64
+#define QUEUE_DEPTH		28
 
 class FrSkySportSensor3DigiTx : public FrSkySportSensor
 {

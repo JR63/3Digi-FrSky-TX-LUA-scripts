@@ -1,7 +1,7 @@
 /*
   FrSky single wire serial class for Teensy 3.x/LC and 328P based boards (e.g. Pro Mini, Nano, Uno)
   (c) Pawelsky 20160919
-  (C) by Joerg-D. Rothfuchs 20181105
+  (C) by Joerg-D. Rothfuchs 20190611
   Not for commercial use
 */
 
@@ -16,6 +16,7 @@
 #define FRSKY_TELEMETRY_START_FRAME	0x7E
 #define FRSKY_STUFFING			0x7D
 
+#define FRSKY_SENSOR_DATA_FRAME		0x10
 #define FRSKY_SENSOR_DATA_FRAME_ID_TX	0x32
 
 class FrSkySportSingleWireSerial
@@ -32,7 +33,7 @@ class FrSkySportSingleWireSerial
     FrSkySportSingleWireSerial();
     void begin(SerialId id);
     void sendHeader(uint8_t id);
-    void sendData(uint16_t dataTypeId, uint32_t id);
+    void sendData(uint8_t id, uint16_t dataTypeId, uint32_t data);
     void sendEmpty(uint16_t dataTypeId);
     Stream* port;
 
