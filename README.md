@@ -8,13 +8,12 @@ Here you can find LUA scripts and Arduino code which enables you to configure th
 [![paypal](https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3FXULQ9U8QRJL)
 
 
-## Some videos
+## A video
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=JW1EijqbsC4" target="_blank"><img src="http://img.youtube.com/vi/JW1EijqbsC4/0.jpg" alt="FrSky OpenTX integration for 3Digi" width="240" height="180" border="10" /></a>
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=mHS5WoL_5qU" target="_blank"><img src="http://img.youtube.com/vi/mHS5WoL_5qU/0.jpg" alt="FrSky OpenTX integration for 3Digi" width="240" height="180" border="10" /></a>
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=v5_jaHLWem0" target="_blank"><img src="http://img.youtube.com/vi/v5_jaHLWem0/0.jpg" alt="FrSky OpenTX integration for 3Digi" width="240" height="180" border="10" /></a>
+
 
 
 ## How to play around with the scripts in the OpenTX Companion
