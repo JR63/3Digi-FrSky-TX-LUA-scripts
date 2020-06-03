@@ -5,6 +5,9 @@ Here you can find LUA scripts and Arduino code which enables you to configure th
 
 ## Please consider donating
 
+So many downloads and absolutely no donation yet.
+Probably my last opensource project.
+
 [![paypal](https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3FXULQ9U8QRJL)
 
 
